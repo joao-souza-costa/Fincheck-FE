@@ -13,7 +13,7 @@
           <header class="h-12 flex items-center justify-between text-gray-800">
             <button
               @click="$emit('update:open', false)"
-              class="w-12 h-12 flex items-center justify-center outline-none"
+              class="w-12 h-12 flex items-center justify-center outline-none cursor-pointer"
             >
               <cross-icon class="w-6 h-6" />
             </button>

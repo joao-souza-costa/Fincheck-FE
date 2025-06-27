@@ -3,7 +3,7 @@
     <BaseDropdown.Root>
       <BaseDropdown.Trigger>
         <button
-          class="relative bg-white w-full rounded-lg border text-start border-gray-500 px-3 h-[55px] text-gray-800 outline-none focus:border-gray-800 transition-all"
+          class="relative cursor-pointer bg-white w-full rounded-lg border text-start border-gray-500 px-3 h-[55px] text-gray-800 outline-none focus:border-gray-800 transition-all"
           :class="[errorMessage && '!border-red-900 text-red-900']"
         >
           Cor

@@ -74,7 +74,7 @@ const internalValue = computed<Date>({
 const { errorMessage, value, setValue } = useField(name, undefined)
 </script>
 
-<style lang="less">
+<style>
 .dp__theme_light {
   --dp-primary-color: rgb(8 127 91 / var(--tw-bg-opacity));
   --dp-icon-color: rgb(8 127 91 / var(--tw-bg-opacity));

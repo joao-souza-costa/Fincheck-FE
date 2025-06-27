@@ -21,7 +21,7 @@ import UserMenu from '@/view/components/UserMenu.vue'
 import { RouterView } from 'vue-router'
 </script>
 
-<style scoped>
+<style>
 .go-enter-active,
 .go-leave-active {
   transition: all 0.25s ease-out;

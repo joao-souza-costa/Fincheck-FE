@@ -1,38 +1,38 @@
 <template>
-  <base-account-modal
+  <base-employee-modal
     v-if="isOpen"
-    modal-label="Editar Conta"
+    modal-label="Editar Funcionário"
     button-label="Editar"
-    :initial-values="account"
+    :initial-values="employee"
     @close="$emit('close')"
-    @submit="(v) => onSubmit(v, account.id)"
+    @submit="(v) => onSubmit(v, employee.id)"
   >
     <template #right-action>
       <trash-icon role="button" class="w-6 h-6 text-red-800" @click="handleDeleteModal" />
     </template>
     <base-button type="submit" :is-loading="updateLoading || queryLoading"> Salvar </base-button>
-  </base-account-modal>
+  </base-employee-modal>
 
   <confirm-delete-modal
     v-if="isOpenDeleteModal"
-    title="Tem certeza que deseja excluir esta conta"
-    description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
+    title="Tem certeza que deseja excluir esse functionário ?"
+    description="Ao excluir um funcionário os serviços associados ficaram sem funcionários."
     :is-loading="deleteLoading || queryLoading"
-    @confirm="onDelete(account.id)"
+    @confirm="onDelete(employee.id)"
     @cancel="isOpenDeleteModal = false"
     @close="isOpenDeleteModal = false"
   />
 </template>
 
 <script setup lang="ts">
-import type { bankAccountsResponse } from '@/app/services/BankAccountsService'
-import BaseAccountModal from './BaseAccountModal.vue'
+import type { employeesResponse } from '@/app/services/EmployeeService'
+import BaseEmployeeModal from './BaseEmployeeModal.vue'
 import BaseButton from '@/view/components/BaseButton.vue'
 import TrashIcon from '@/view/components/icons/TrashIcon.vue'
 import ConfirmDeleteModal from '@/view/components/ConfirmDeleteModal.vue'
-import { useEditAccountModalController } from './EditAccountModalController'
+import { useEditAccountModalController } from './EditEmployeeModalController'
 
- defineProps<{ isOpen: boolean; account: bankAccountsResponse }>()
+defineProps<{ isOpen: boolean; employee: employeesResponse }>()
 const emit = defineEmits<{ close: [] }>()
 
 const {

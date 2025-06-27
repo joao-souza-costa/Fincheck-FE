@@ -8,6 +8,14 @@ import { createApp } from 'vue/dist/vue.esm-bundler'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from "@tanstack/vue-query";
 
+import { setLocale } from 'yup';
+
+setLocale({
+  mixed: {
+    required: "Este campo é obrigatório"
+  },
+});
+
 import App from './App.vue'
 import router from './router'
 

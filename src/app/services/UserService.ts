@@ -7,7 +7,7 @@ interface User {
 
 export default {
   me: async () => {
-    const { data } = await httpClient.get<User>('/users/me')
+    const { data } = await httpClient.get<User>('/employee')
     return data
   },
 }

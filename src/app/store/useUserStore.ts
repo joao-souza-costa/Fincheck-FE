@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter()
   const accessToken = ref<boolean>(Boolean(localStorage.getItem(accessTokenKey)))
 
-  const { data: user, isFetching, isSuccess, remove } = useQuery({
+  const { data: user, isFetching, isSuccess } = useQuery({
     queryKey: ['users', 'me'],
     queryFn: async () => userService.me(),
     enabled: accessToken,
@@ -26,7 +26,6 @@ export const useUserStore = defineStore('user', () => {
   const signout = (): void => {
     localStorage.removeItem(accessTokenKey)
     accessToken.value = Boolean(false)
-    remove()
     router.push(LOGIN)
   }
 

@@ -9,33 +9,42 @@
     </p>
   </header>
 
-  <Form
-    @submit="onSubmit"
-    :validation-schema="schema"
-    class="mt-[60px] flex flex-col items-center gap-4"
-  >
-    <base-input type="text" id="name" name="name" placeholder="Nome" />
-    <base-input type="text" id="email" name="email" placeholder="Email" />
-    <base-input type="password" id="password" name="password" placeholder="Senha" />
-    <base-input
-      type="password"
-      id="password"
-      name="confirmPassword"
-      placeholder="Confirmar senha"
-    />
-    <base-button :is-loading="isLoading" type="submit" class="w-full"> Criar conta </base-button>
-  </Form>
+  <transition name="go" mode="out-in">
+    <keep-alive>
+      <component
+        :is="component"
+        :is-loading="isLoading"
+        @next="handleNextStep"
+        @create-account="handleCreateAccount"
+      />
+    </keep-alive>
+  </transition>
 </template>
 
 <script setup lang="ts">
-import { Form } from 'vee-validate'
 import { RouterLink } from 'vue-router'
 import { LOGIN } from '@/app/config/constants/route'
-import BaseInput from '@/view/components/BaseInput.vue'
-import BaseButton from '@/view/components/BaseButton.vue'
+import CompanyForm from './components/CompanyForm.vue'
+import UserForm from './components/UserForm.vue'
 import { useRegisterController } from './useRegisterController'
+import { shallowRef, type Component } from 'vue'
 
-const { schema, onSubmit, isLoading } = useRegisterController()
+const component = shallowRef<Component>(UserForm)
+
+const { onSubmit, isLoading, payload } = useRegisterController()
+
+function handleNextStep(v: any) {
+  payload.value = v
+  component.value = CompanyForm
+}
+
+function handleCreateAccount(v: any) {
+  if (!v) {
+    return
+  }
+  payload.value!.company = v
+  onSubmit()
+}
 </script>
 
 <style scoped></style>

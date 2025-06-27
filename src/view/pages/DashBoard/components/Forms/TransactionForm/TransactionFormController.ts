@@ -1,12 +1,12 @@
 
 import * as Yup from 'yup'
-import { useAccountStore } from "@/app/store/useAccountStore"
+import { useEmployeeStore } from "@/app/store/useEmployeeStore"
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { PaymentTypes } from '@/app/config/constants/paymentTypes'
 
 export function useBaseTransactionFormController(type: string) {
-  const { data: accounts, queryLoading: accountLoading } = storeToRefs(useAccountStore())
+  const { data: accounts, queryLoading: accountLoading } = storeToRefs(useEmployeeStore())
 
   const accountsOptions = computed(() => {
     if (!accounts.value) return []

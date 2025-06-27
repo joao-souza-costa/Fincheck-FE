@@ -1,19 +1,19 @@
 import type { TRANSACTION_TYPE } from "@/app/config/constants/transaction"
-import type { bankAccountsResponse } from "@/app/services/BankAccountsService"
+import type { bankEmployeesResponse } from "@/app/services/EmployeeService"
 import type { Transaction } from "@/app/services/TransactionService"
 import { provide, reactive, ref } from "vue"
 
-type tAccountType = 'CREATE' | 'EDIT'
+type tEmployeeType = 'CREATE' | 'EDIT'
 
-export const MODALS_PROVIDER: string = 'newAccountModalProvider'
+export const MODALS_PROVIDER: string = 'newEmployeeModalProvider'
 
 export type modalsProviderProps = {
-  isOpenAccountModal: {
+  isOpenEmployeeModal: {
     CREATE: boolean
     EDIT: boolean
-    EDIT_ACCOUNT: bankAccountsResponse | undefined
+    EDIT_EMPLOYEE: bankEmployeesResponse | undefined
   }
-  toggleAccountModal: (type: tAccountType, account?: bankAccountsResponse) => void
+  toggleEmployeeModal: (type: tEmployeeType, employee?: bankEmployeesResponse) => void
 
   isOpenTransactionModal: {
     INCOME: boolean
@@ -27,15 +27,15 @@ export type modalsProviderProps = {
 
 export function useModalsProvider() {
 
-  const isOpenAccountModal = reactive<modalsProviderProps['isOpenAccountModal']>({
+  const isOpenEmployeeModal = reactive<modalsProviderProps['isOpenEmployeeModal']>({
     CREATE: false,
     EDIT: false,
-    EDIT_ACCOUNT: undefined
+    EDIT_EMPLOYEE: undefined
   })
 
-  const toggleAccountModal = (type: tAccountType, account?: bankAccountsResponse): void => {
-    if (type === "EDIT" && account) isOpenAccountModal.EDIT_ACCOUNT = account
-    isOpenAccountModal[type] = !isOpenAccountModal[type]
+  const toggleEmployeeModal = (type: tEmployeeType, employee?: bankEmployeesResponse): void => {
+    if (type === "EDIT" && employee) isOpenEmployeeModal.EDIT_EMPLOYEE = employee
+    isOpenEmployeeModal[type] = !isOpenEmployeeModal[type]
   }
 
   const isOpenTransactionModal = reactive<modalsProviderProps['isOpenTransactionModal']>({
@@ -60,8 +60,8 @@ export function useModalsProvider() {
   }
 
   provide(MODALS_PROVIDER, {
-    isOpenAccountModal,
-    toggleAccountModal,
+    isOpenEmployeeModal,
+    toggleEmployeeModal,
     isOpenTransactionModal,
     toggleTransactionModal,
     isOpenDeleteModal,

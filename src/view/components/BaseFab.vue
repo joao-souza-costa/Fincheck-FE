@@ -3,7 +3,7 @@
     <BaseDropdown.Root>
       <BaseDropdown.Trigger>
         <button
-          class="text-white bg-teal-900 w-12 h-12 rounded-full flex justify-center items-center outline-none"
+          class="text-white bg-teal-900 cursor-pointer w-12 h-12 rounded-full flex justify-center items-center outline-none"
         >
           <plus-icon class="w-6 h-6" />
         </button>
@@ -26,9 +26,9 @@
           <span :class="[!hasAccounts && 'opacity-50']"> Nova Receita </span>
         </BaseDropdown.Item>
 
-        <BaseDropdown.Item @click="toggleAccountModal('CREATE')" class="gap-2">
+        <BaseDropdown.Item @click="toggleEmployeeModal('CREATE')" class="gap-2">
           <BankAccountIcon />
-          Nova Conta
+          Novo funcionário
         </BaseDropdown.Item>
       </BaseDropdown.Content>
     </BaseDropdown.Root>
@@ -46,16 +46,16 @@ import {
   MODALS_PROVIDER,
   type modalsProviderProps
 } from '@/view/pages/DashBoard/providers/modalsProvider'
-import { useAccountStore } from '@/app/store/useAccountStore'
+import { useEmployeeStore } from '@/app/store/useEmployeeStore'
 import { TRANSACTION_TYPE } from '@/app/config/constants/transaction'
 
-const { toggleAccountModal, toggleTransactionModal } = inject(
+const { toggleEmployeeModal, toggleTransactionModal } = inject(
   MODALS_PROVIDER
 ) as modalsProviderProps
 
-const accountsStore = useAccountStore()
+const accountsStore = useEmployeeStore()
 
 const hasAccounts = computed(() => {
-  return accountsStore.data?.length
+  return accountsStore.employees?.length
 })
 </script>

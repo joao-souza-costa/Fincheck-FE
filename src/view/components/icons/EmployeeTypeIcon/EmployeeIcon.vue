@@ -6,10 +6,10 @@
 import { markRaw } from 'vue'
 import { iconsMap } from './iconsMap'
 
-type BankAccountTypeIconProps = {
+type EmployeeTypeIconProps = {
   type: keyof typeof iconsMap
 }
-const props = defineProps<BankAccountTypeIconProps>()
+const props = defineProps<EmployeeTypeIconProps>()
 
 const current = markRaw(iconsMap[props.type])
 </script>

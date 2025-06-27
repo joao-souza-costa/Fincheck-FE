@@ -3,7 +3,14 @@ import { httpClient } from "./Client";
 export interface signUpParams {
   email: string,
   name: string,
-  password: string
+  password: string,
+  company: {
+    name: string
+    address: string
+    description: string
+    phone: string
+    pixKey: string
+  }
 }
 
 export interface signInParams {
@@ -27,7 +34,6 @@ export default {
     const { data } = await httpClient.post<{ token: string }>('/auth/signin', params)
     return data
   },
-
   forgotPassword: async (params: Pick<signInParams, "email">,) => {
     const { data } = await httpClient.post('/auth/reset-password', params)
     return data

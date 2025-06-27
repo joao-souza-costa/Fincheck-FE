@@ -7,13 +7,13 @@
       <div class="h-44">
         <base-scroll-bar>
           <button
+            v-for="employee in employees"
+            :class="{ '!bg-gray-200': selectedAccountId === employee.id }"
+            :key="employee.id"
             class="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50"
-            :class="{ '!bg-gray-200': selectedAccountId === account.id }"
-            v-for="account in accounts"
-            :key="account.id"
-            @click="handleSelectedId(account.id)"
+            @click="handleSelectedId(employee.id)"
           >
-            {{ account.name }}
+            {{ employee.name }}
           </button>
         </base-scroll-bar>
       </div>
@@ -73,7 +73,7 @@ defineProps<iProps>()
 const emit = defineEmits<iEmits>()
 
 const {
-  accounts,
+  employees,
   selectedAccountId,
   selectedPeriod,
   selectedPeriodIndex,

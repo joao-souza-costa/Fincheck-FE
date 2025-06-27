@@ -1,14 +1,13 @@
 import { computed, ref } from 'vue'
-import { useAccountStore } from '@/app/store/useAccountStore'
+import { useEmployeeStore } from '@/app/store/useEmployeeStore'
 import { storeToRefs } from 'pinia'
 import { useTransactionsStore } from '@/app/store/useTransactionStore'
 import { PERIODS } from '@/app/config/constants/dates'
 
 export function useFiltersModalController() {
-  const store = useAccountStore()
+  const employeeStore = useEmployeeStore()
   const transactionStore = useTransactionsStore()
 
-  const { data: accounts } = storeToRefs(store)
   const { filters } = storeToRefs(transactionStore)
 
   const selectedAccountId = ref<undefined | string>(undefined)
@@ -35,7 +34,7 @@ export function useFiltersModalController() {
 
 
   return {
-    accounts,
+    employees: employeeStore.employees,
     selectedAccountId,
     selectedPeriod,
     selectedPeriodIndex,

@@ -20,7 +20,7 @@
       />
     </template>
 
-    <Transition :name="transition" mode="out-in">
+    <transition :name="transition" mode="out-in">
       <keep-alive>
         <component
           :is="tabs[currentTab].component"
@@ -34,7 +34,7 @@
           @add-category="handleAddCategories"
         />
       </keep-alive>
-    </Transition>
+    </transition>
   </base-modal>
 </template>
 
@@ -65,35 +65,3 @@ const {
   handleAddCategories
 } = useBaseTransactionModalController(props, emit)
 </script>
-
-<style scoped>
-.go-enter-active,
-.go-leave-active {
-  transition: all 0.25s ease-out;
-}
-
-.go-enter-from {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.go-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-
-.back-enter-active,
-.back-leave-active {
-  transition: all 0.25s ease-out;
-}
-
-.back-enter-from {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-
-.back-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-</style>

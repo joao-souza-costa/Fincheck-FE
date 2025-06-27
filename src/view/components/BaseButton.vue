@@ -1,7 +1,7 @@
 <template>
   <button
     :disabled="disabled || isLoading"
-    class="disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 px-6 h-12 rounded-2xl font-medium transition-all flex items-center justify-center"
+    class="disabled:bg-gray-100 disabled:cursor-not-allowed cursor-pointer disabled:text-gray-400 px-6 h-12 rounded-2xl font-medium transition-all flex items-center justify-center"
     :class="buttonVariant[variant]"
   >
     <base-spinner class="w-6 h-6" v-if="isLoading" />

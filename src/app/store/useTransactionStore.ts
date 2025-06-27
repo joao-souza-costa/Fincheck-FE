@@ -34,9 +34,9 @@ export const useTransactionsStore = defineStore('transactions', () => {
 
   watch(filters.value, () => refetch(), { deep: true })
 
-  const { mutateAsync: createMutation, isLoading: createLoading } = useMutation(transactionService.create)
-  const { mutateAsync: updateMutation, isLoading: updateLoading } = useMutation(transactionService.update)
-  const { mutateAsync: deleteMutation, isLoading: deleteLoading } = useMutation(transactionService.delete)
+  const { mutateAsync: createMutation, isPending: createLoading } = useMutation({ mutationFn: transactionService.create })
+  const { mutateAsync: updateMutation, isPending: updateLoading } = useMutation({ mutationFn: transactionService.update })
+  const { mutateAsync: deleteMutation, isPending: deleteLoading } = useMutation({ mutationFn: transactionService.delete })
 
   const invalidateTransactionsQuery = async () => {
     return queryClient.invalidateQueries({ queryKey: ['transactions'] })
@@ -62,24 +62,11 @@ export const useTransactionsStore = defineStore('transactions', () => {
   }
 
   const groupedTransactionByAccount = computed(() => {
-    return data.value?.reduce((acc: {
-      accounts: AccountsDictionary,
-      totalIncome: number
-      totalExpense: number
-    }, item) => {
-      const isExpense = item.type === "EXPENSE"
-      isExpense ? acc.totalExpense += item.value : acc.totalIncome += item.value
-      acc.accounts[item.bankAccountId] ?
-        acc.accounts[item?.bankAccountId] += item.value :
-        acc.accounts[item?.bankAccountId] = item.value
-
-      return acc
-
-    }, {
+    return {
       accounts: {},
       totalExpense: 0,
       totalIncome: 0
-    })
+    }
   })
 
   return {
