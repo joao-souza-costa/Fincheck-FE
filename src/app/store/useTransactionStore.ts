@@ -23,6 +23,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const { data, isFetching: queryLoading, isInitialLoading: queryInitialLoading, isRefetching, refetch } = useQuery({
     queryKey: ['transactions'],
     queryFn: () => transactionService.getAll(filters.value),
+    retry: false,
     enabled: accessToken
   })
 
@@ -51,6 +52,8 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const updateTransaction = (id: string, { category, ...values }: any,) => {
     return updateMutation({
       ...values,
+      serviceId: values.serviceId || undefined,
+      employeeId: values.employeeId || undefined,
       id,
       value: Number(values.value),
     }).then(invalidateTransactionsQuery)

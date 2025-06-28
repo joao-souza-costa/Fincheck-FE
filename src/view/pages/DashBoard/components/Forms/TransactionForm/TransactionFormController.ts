@@ -51,7 +51,7 @@ export function useBaseTransactionFormController(type: string) {
       .test('value', 'Saldo precisa ser maior que zero', val => Number(val) > 0),
     name: Yup.string().required('Nome da transação é obrigatório'),
     serviceId: Yup.mixed(),
-    employeeId: Yup.string(),
+    employeeId: Yup.mixed(),
     paymentType: Yup.string().required('Método de pagamento é obrigatório'),
     date: Yup.date().required('Data é obrigatório'),
   })
