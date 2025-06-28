@@ -8,9 +8,8 @@
     <template v-else>
       <div>
         <div>
-          <span class="text-white block tracking-[-0.5px]">Saldo Total</span>
           <div class="flex flex-row justify-between items-center gap-2">
-            <base-balance class="text-2xl tracking-[-1px] text-white" :balance="total" />
+            <span class="text-white block tracking-[-0.5px]">Saldo Total </span>
             <button
               class="w-8 h-8 flex items-center justify-center cursor-pointer"
               @click="toggleVisibility"
@@ -18,11 +17,19 @@
               <eye-icon :open="!areVisible" />
             </button>
           </div>
+
+          <base-balance
+            class="text-2xl tracking-[-1px] text-white"
+            :balance="employeeStore.total"
+          />
         </div>
         <div class="mt-8">
           <span class="text-white block tracking-[-0.5px]">Comissões a pagar</span>
-          <div class="flex flex-row items-center gap-2">
-            <base-balance class="text-2xl tracking-[-1px] text-white" :balance="total" />
+          <div>
+            <base-balance
+              class="text-2xl tracking-[-1px] text-white"
+              :balance="employeeStore.totalCommission"
+            />
           </div>
         </div>
       </div>
@@ -64,7 +71,7 @@
               </div>
             </template>
 
-            <swiper-slide v-for="employee in employees" :key="employee!.id">
+            <swiper-slide v-for="employee in employeeStore.filteredEmployees" :key="employee!.id">
               <employee-card
                 :balance="employee.currentBalance"
                 :commission="employee.currentCommission"
@@ -105,8 +112,4 @@ const employeeStore = useEmployeeStore()
 
 const employees = computed(() => employeeStore.employees)
 const isLoading = computed(() => employeeStore.queryLoading)
-
-const total = computed(() => {
-  return employeeStore.totalExpense + employeeStore.totalIncome
-})
 </script>

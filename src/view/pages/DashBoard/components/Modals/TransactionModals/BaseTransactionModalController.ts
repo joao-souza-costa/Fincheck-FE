@@ -1,6 +1,6 @@
 
-import type { categoriesResponse } from '@/app/services/CategoriesService'
-import TransactionForm from '../../forms/TransactionForm/TransactionForm.vue'
+import type { servicesResponse } from '@/app/services/ServicesService'
+import TransactionForm from '../../Forms/TransactionForm/TransactionForm.vue'
 import CategoriesList from '../CategoryModals/CategoriesList.vue'
 import { computed, ref } from 'vue'
 import type { Transaction } from '@/app/services/TransactionService'
@@ -24,7 +24,7 @@ export type tProps = {
     balanceLabel: string
     transactionNameLabel: string
     categoryLabel: string
-    paymentLabel: string
+    professionalLabel: string
     paymentTypeLabel: string
   }
 }
@@ -32,7 +32,7 @@ export type tProps = {
 export function useBaseTransactionModalController(props: tProps, emit: Function) {
   const router = useRouter()
 
-  const category = ref<categoriesResponse | undefined>(props.transaction?.category)
+  const category = ref<servicesResponse | undefined>(props.transaction?.category)
 
   const currentTab = ref('TransactionForm')
   const transition = ref('go')
@@ -59,7 +59,7 @@ export function useBaseTransactionModalController(props: tProps, emit: Function)
     CategoriesList: {
       component: CategoriesList,
       closeFn: setForm,
-      submitFn: (chosenCategory: categoriesResponse) => {
+      submitFn: (chosenCategory: servicesResponse) => {
         setForm()
         category.value = chosenCategory
       }

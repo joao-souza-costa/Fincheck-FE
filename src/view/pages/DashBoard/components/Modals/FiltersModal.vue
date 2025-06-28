@@ -15,6 +15,14 @@
           >
             {{ employee.name }}
           </button>
+
+          <button
+            :class="{ '!bg-gray-200': selectedAccountId === 'NON_PROFESSIONAL' }"
+            class="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50"
+            @click="handleSelectedId('NON_PROFESSIONAL')"
+          >
+            Profissional indefinido
+          </button>
         </base-scroll-bar>
       </div>
 
@@ -57,7 +65,7 @@ import SliderNavigation from '../Transactions/SliderNavigation.vue'
 import { PERIODS, PERIODS_LABEL } from '@/app/config/constants/dates'
 
 type tFilters = {
-  bankAccountId: string | undefined
+  employeeId: string | undefined
   period: PERIODS
 }
 
@@ -84,6 +92,6 @@ const {
 } = useFiltersModalController()
 
 const handleApplyFilters = () => {
-  emit('applyFilters', { bankAccountId: selectedAccountId.value, period: selectedPeriod.value })
+  emit('applyFilters', { employeeId: selectedAccountId.value, period: selectedPeriod.value })
 }
 </script>

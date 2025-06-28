@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { categoriesResponse } from '@/app/services/CategoriesService'
+import type { categoriesResponse } from '@/app/services/ServicesService'
 import ChevronRightIcon from '@/view/components/icons/ChevronRightIcon.vue'
 import BaseInputError from '@/view/components/BaseInputError.vue'
 import CategoryOption from '../../modals/CategoryModals/CategoryOption.vue'

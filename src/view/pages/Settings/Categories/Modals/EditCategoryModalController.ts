@@ -1,11 +1,11 @@
 import { toast } from '@/app/utils/toast'
 import { ref } from 'vue'
-import { useCategoryStore } from '@/app/store/useCategoryStore'
+import { useServiceStore } from '@/app/store/useServiceStore'
 import { storeToRefs } from 'pinia'
 
 
 export function useEditCategoryModalController(emit: Function) {
-  const category = useCategoryStore()
+  const category = useServiceStore()
   const { updateLoading, deleteLoading, isRefetchingLoading } = storeToRefs(category)
   const isOpenDeleteModal = ref<boolean>(false)
 

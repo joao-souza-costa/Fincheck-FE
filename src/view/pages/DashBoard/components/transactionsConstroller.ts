@@ -23,11 +23,11 @@ export function useTransactionsController() {
     store.handleChangeFilters("date")(value)
   }
 
-  const handleApplyFilters = ({ bankAccountId, period }: {
-    bankAccountId: string | undefined
+  const handleApplyFilters = ({ employeeId, period }: {
+    employeeId: string | undefined
     period: PERIODS
   }) => {
-    store.handleChangeFilters("bankAccountId")(bankAccountId)
+    store.handleChangeFilters("employeeId")(employeeId)
     store.handleChangeFilters("period")(period)
     toggleFiltersModal()
   }
@@ -36,7 +36,7 @@ export function useTransactionsController() {
 
   return {
     filters,
-    transactions: data,
+    data,
     transactionsLoading: slideLoading,
     initialLoading: queryInitialLoading,
     slideLoading,

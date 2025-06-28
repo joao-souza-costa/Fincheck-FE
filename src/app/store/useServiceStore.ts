@@ -1,33 +1,32 @@
 import { defineStore, storeToRefs } from "pinia"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query"
-import categoriesService from "../services/CategoriesService"
+import servicesService from "../services/ServicesService"
 import { useUserStore } from "./useUserStore"
-import { computed } from "vue"
 
-export const useCategoryStore = defineStore('categories', () => {
+export const useServiceStore = defineStore('services', () => {
 
   const { accessToken } = storeToRefs(useUserStore())
   const queryClient = useQueryClient()
 
   const { data = [], isLoading: queryLoading, isRefetching: isRefetchingLoading } = useQuery({
-    queryKey: ['categories'],
-    queryFn: categoriesService.getAll,
+    queryKey: ['services'],
+    queryFn: servicesService.getAll,
     enabled: accessToken
   })
 
-  const { mutateAsync: createMutation, isLoading: createLoading } = useMutation(categoriesService.create)
-  const { mutateAsync: updateMutation, isLoading: updateLoading } = useMutation(categoriesService.update)
-  const { mutateAsync: deleteMutation, isLoading: deleteLoading } = useMutation(categoriesService.delete)
+  const { mutateAsync: createMutation, isPending: createLoading } = useMutation({ mutationFn: servicesService.create })
+  const { mutateAsync: updateMutation, isPending: updateLoading } = useMutation({ mutationFn: servicesService.update })
+  const { mutateAsync: deleteMutation, isPending: deleteLoading } = useMutation({ mutationFn: servicesService.delete })
 
   const invalidateCategoriesQuery = () => {
-    return queryClient.invalidateQueries({ queryKey: ['categories'] })
+    return queryClient.invalidateQueries({ queryKey: ['services'] })
   }
 
-  const createCategory = (values: any) => {
+  const createService = (values: any) => {
     return createMutation(values).then(invalidateCategoriesQuery)
   }
 
-  const updateCategory = (values: any, id: string) => {
+  const updateService = (values: any, id: string) => {
     return updateMutation({
       ...values,
       initialBalance: Number(values.initialBalance),
@@ -35,7 +34,7 @@ export const useCategoryStore = defineStore('categories', () => {
     }).then(invalidateCategoriesQuery)
   }
 
-  const deleteCategory = (id: string) => {
+  const deleteService = (id: string) => {
     return deleteMutation(id)
       .then(invalidateCategoriesQuery)
   }
@@ -47,8 +46,8 @@ export const useCategoryStore = defineStore('categories', () => {
     createLoading,
     updateLoading,
     deleteLoading,
-    createCategory,
-    updateCategory,
-    deleteCategory,
+    createService,
+    updateService,
+    deleteService,
   }
 })

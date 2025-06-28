@@ -15,10 +15,10 @@
 import { toast } from '@/app/utils/toast'
 import BaseButton from '@/view/components/BaseButton.vue'
 import BaseCategoryModal from './BaseCategoryModal.vue'
-import { useCategoryStore } from '@/app/store/useCategoryStore'
+import { useServiceStore } from '@/app/store/useServiceStore'
 import { storeToRefs } from 'pinia'
 
-const categoriesStore = useCategoryStore()
+const categoriesStore = useServiceStore()
 const { createLoading, isRefetchingLoading } = storeToRefs(categoriesStore)
 
 defineProps<{ isOpen: boolean }>()

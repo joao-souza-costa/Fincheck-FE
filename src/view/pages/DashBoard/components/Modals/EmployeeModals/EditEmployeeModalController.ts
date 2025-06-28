@@ -19,14 +19,14 @@ export function useEditAccountModalController(emit: Function) {
     return employees.updateEmployee(values, id)
       .then(() => toast.success('Conta editada com sucesso'))
       .then(() => emit('close'))
-      .catch(() => toast.error('Não foi possivel editar a sua conta'))
+      .catch((e) => toast.error(e.response.data.message || 'Não foi possivel editar a sua conta'))
   }
 
   async function onDelete(id: string) {
     return employees.deleteEmployee(id)
       .then(() => toast.success('Conta deletada com sucesso'))
       .then(() => (isOpenDeleteModal.value = false))
-      .catch(() => toast.error('Não foi possivel deletar a sua conta'))
+      .catch((e) => toast.error(e.response.data.message || 'Não foi possivel deletar a sua conta'))
   }
 
   return {

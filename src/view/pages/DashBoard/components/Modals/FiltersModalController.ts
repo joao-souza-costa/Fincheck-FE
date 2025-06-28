@@ -6,6 +6,7 @@ import { PERIODS } from '@/app/config/constants/dates'
 
 export function useFiltersModalController() {
   const employeeStore = useEmployeeStore()
+  const { employees } = storeToRefs(employeeStore)
   const transactionStore = useTransactionsStore()
 
   const { filters } = storeToRefs(transactionStore)
@@ -34,7 +35,7 @@ export function useFiltersModalController() {
 
 
   return {
-    employees: employeeStore.employees,
+    employees,
     selectedAccountId,
     selectedPeriod,
     selectedPeriodIndex,

@@ -14,13 +14,13 @@
         :placeholder="transactionNameLabel"
       />
 
-      <Field name="categoryId" :model-value="category?.id" v-slot="{ errorMessage }" as="div">
-        <category-input
-          :category="category"
-          :error-message="errorMessage"
-          @open-categories="$emit('open-categories')"
-        />
-      </Field>
+      <base-input-select
+        v-if="props.type === TRANSACTION_TYPE.INCOME"
+        name="serviceId"
+        :options="serviceOptions"
+        :placeholder="serviceLabel"
+      />
+
       <base-input-select
         name="paymentType"
         :options="paymentTypeOptions"
@@ -28,9 +28,10 @@
       />
 
       <base-input-select
-        name="bankAccountId"
-        :options="accountsOptions"
-        :placeholder="paymentLabel"
+        v-if="props.type === TRANSACTION_TYPE.INCOME"
+        name="employeeId"
+        :options="employeesOptions"
+        :placeholder="professionalLabel"
       />
 
       <base-date-picker-input name="date" />
@@ -49,19 +50,17 @@ import BaseInputSelect from '@/view/components/BaseInputSelect.vue'
 import BaseDatePickerInput from '@/view/components/BaseDatePickerInput.vue'
 import { useBaseTransactionFormController } from './TransactionFormController'
 import BaseButton from '@/view/components/BaseButton.vue'
-import CategoryInput from './CategoryInput.vue'
-import type { TRANSACTION_TYPE } from '@/app/config/constants/transaction'
+import { TRANSACTION_TYPE } from '@/app/config/constants/transaction'
 
 type tProps = {
   isLoading: boolean
   initialValues?: Omit<Partial<Transaction>, 'categoryId'>
-  category?: Transaction['category']
   type: TRANSACTION_TYPE
   balanceLabel: string
   transactionNameLabel: string
-  categoryLabel: string
   paymentTypeLabel: string
-  paymentLabel: string
+  professionalLabel: string
+  serviceLabel: string
 }
 
 type tEmit = {
@@ -77,5 +76,6 @@ const props = withDefaults(defineProps<tProps>(), {
 
 defineEmits<tEmit>()
 
-const { schema, accountsOptions, paymentTypeOptions } = useBaseTransactionFormController(props.type)
+const { schema, employeesOptions, paymentTypeOptions, serviceOptions } =
+  useBaseTransactionFormController(props.type)
 </script>

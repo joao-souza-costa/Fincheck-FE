@@ -1,6 +1,6 @@
 <template>
   <base-modal
-    class="min-h-[600px] transition-all duration-700"
+    class="transition-all duration-700"
     :title="labels.title"
     :open="isOpen"
     @update:open="tabs[currentTab].closeFn"
@@ -23,12 +23,12 @@
     <transition :name="transition" mode="out-in">
       <keep-alive>
         <component
+          v-bind="labels"
           :is="tabs[currentTab].component"
           :type="type"
           :initial-values="transaction"
           :category="category"
           :is-loading="loading"
-          v-bind="labels"
           @submit="tabs[currentTab].submitFn"
           @open-categories="setCategories"
           @add-category="handleAddCategories"

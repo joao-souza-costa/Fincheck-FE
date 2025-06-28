@@ -25,7 +25,7 @@ import BaseInput from '@/view/components/BaseInput.vue'
 import BaseInputSelect from '@/view/components/BaseInputSelect.vue'
 import { useCategoryModalController } from './BaseCategoryModalController'
 import { TRANSACTION_LABELS, TRANSACTION_TYPE } from '@/app/config/constants/transaction'
-import type { categoriesResponse } from '@/app/services/CategoriesService'
+import type { categoriesResponse } from '@/app/services/ServicesService'
 
 type iProps = {
   label: string

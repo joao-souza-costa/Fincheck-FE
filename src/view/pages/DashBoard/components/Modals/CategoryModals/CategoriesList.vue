@@ -1,3 +1,5 @@
+<!-- //TOOD REATIVAR A LISTA DE CATEGORIAS MAIS PRA FRENTE  -->
+
 <template>
   <section class="h-[511px]">
     <div
@@ -30,7 +32,7 @@ import BaseScrollBar from '@/view/components/BaseScrollBar.vue'
 import CategoryOption from './CategoryOption.vue'
 import emptyState from '@/assets/empty-state.svg'
 import { useCategoriesListController } from './CategoriesListController'
-import type { categoriesResponse } from '@/app/services/CategoriesService'
+import type { categoriesResponse } from '@/app/services/ServicesService'
 import type { TRANSACTION_TYPE } from '@/app/config/constants/transaction'
 
 import BaseButton from '@/view/components/BaseButton.vue'

@@ -17,7 +17,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const filters = ref<GetAllTransactionFilters>({
     date: startOfDay(Date.now()).toISOString(),
     period: PERIODS.diary,
-    bankAccountId: undefined
+    employeeId: undefined
   })
 
   const { data, isFetching: queryLoading, isInitialLoading: queryInitialLoading, isRefetching, refetch } = useQuery({
@@ -29,10 +29,9 @@ export const useTransactionsStore = defineStore('transactions', () => {
   function handleChangeFilters<TFilter extends keyof GetAllTransactionFilters>(filter: TFilter) {
     return (value: GetAllTransactionFilters[TFilter]) => {
       filters.value[filter] = value
+      refetch()
     }
   }
-
-  watch(filters.value, () => refetch(), { deep: true })
 
   const { mutateAsync: createMutation, isPending: createLoading } = useMutation({ mutationFn: transactionService.create })
   const { mutateAsync: updateMutation, isPending: updateLoading } = useMutation({ mutationFn: transactionService.update })
@@ -61,18 +60,9 @@ export const useTransactionsStore = defineStore('transactions', () => {
     return deleteMutation(id).then(invalidateTransactionsQuery)
   }
 
-  const groupedTransactionByAccount = computed(() => {
-    return {
-      accounts: {},
-      totalExpense: 0,
-      totalIncome: 0
-    }
-  })
-
   return {
     data,
     filters,
-    groupedTransactionByAccount,
     queryLoading,
     queryInitialLoading,
     createLoading,

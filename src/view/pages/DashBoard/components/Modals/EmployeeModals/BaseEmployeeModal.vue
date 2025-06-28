@@ -21,7 +21,6 @@
         <base-input type="tel" id="phone" name="phone" placeholder="Whatsapp" />
         <base-input-select
           placeholder="Tipo"
-          initial-value="EMPLOYEE"
           name="type"
           :options="options"
         />
@@ -61,12 +60,6 @@ defineProps<iProps>()
 
 const emit = defineEmits<tEmit>()
 
-function integerValidation(value: string) {
-  if (!Number.isInteger(parseInt(value))) {
-    return false
-  }
-  return true
-}
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Informe um email válido').required('Email é obrigatório'),

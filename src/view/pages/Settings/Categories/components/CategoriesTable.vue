@@ -22,7 +22,7 @@
 import BaseTable from '@/view/components/Table/TableRoot'
 import CategoryIcon from '@/view/components/icons/categories/CategoryIcon.vue'
 import { TRANSACTION_LABELS, TRANSACTION_TYPE } from '@/app/config/constants/transaction'
-import type { categoriesResponse } from '@/app/services/CategoriesService'
+import type { categoriesResponse } from '@/app/services/ServicesService'
 
 const headers = [
   { key: 'name', title: 'Nome', class: 'text-start' },

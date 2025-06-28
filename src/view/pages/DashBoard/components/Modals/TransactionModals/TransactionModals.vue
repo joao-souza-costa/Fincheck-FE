@@ -63,7 +63,8 @@ const incomeLabels = ref({
   transactionNameLabel: 'Nome da Receita',
   categoryLabel: 'Categoria',
   paymentTypeLabel: 'Método de pagamento',
-  paymentLabel: 'Conta'
+  professionalLabel: 'Profissional (opcional)',
+  serviceLabel: 'Serviço (opcional)'
 })
 
 const expenseLabels = ref({
@@ -72,6 +73,7 @@ const expenseLabels = ref({
   transactionNameLabel: 'Nome da despesa',
   categoryLabel: 'Categoria',
   paymentTypeLabel: 'Método de pagamento',
-  paymentLabel: 'Conta'
+  serviceLabel: 'Serviço (opcional)',
+  professionalLabel: 'Profissional (opcional)'
 })
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div class="h-full">
-    <main class="flex-1 h-full flex flex-col md:flex-row gap-4 max-h-[95%]">
+    <main class="flex-1 h-full flex flex-col md:flex-row gap-4">
       <div class="w-full md:max-w-[49.5%]">
         <employees-view />
       </div>
-      <div class="w-full md:max-w-[49.5%] ">
+      <div class="w-full md:max-w-[49.5%] max-sm:min-h-[600px]">
         <transactions-view id="transaction-view" />
       </div>
     </main>

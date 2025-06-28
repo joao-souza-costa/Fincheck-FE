@@ -81,7 +81,9 @@ export const TransactionDatesSlider = defineComponent({
       Promise.all([await prependSlider(filters[props.filter](date, 'PREV', 1)),
       await prependSlider(filters[props.filter](date, 'PREV',)),
       await appendSlide(filters[props.filter](date)),
-      await appendSlide(filters[props.filter](date, 'NEXT', 1)),])
+      await appendSlide(filters[props.filter](date, 'NEXT', 1)),
+      await appendSlide(filters[props.filter](date, 'NEXT', 1)),
+      ])
     }
 
     const emitCurrentValue = debounce(() => {
@@ -133,7 +135,7 @@ export const TransactionDatesSlider = defineComponent({
       loop: true,
       on: {
         click: () => this.$emit('slide-start'),
-        slideChangeTransitionEnd: this.handleSelectedValue,
+        slideChangeTransitionEnd: () => this.handleSelectedValue(),
         beforeInit: async () => {
           await this.initValues(new Date(this.current))
         }

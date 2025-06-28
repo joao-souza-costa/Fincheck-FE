@@ -3,10 +3,11 @@ import { defineStore, storeToRefs } from "pinia"
 import employeeService from "../services/EmployeeService"
 import { useTransactionsStore } from "./useTransactionStore"
 import { useUserStore } from "./useUserStore"
-import { computed } from "vue"
+import { computed, ref } from "vue"
 
 export const useEmployeeStore = defineStore('employee', () => {
-  const transactionStore = useTransactionsStore()
+  const transactionStore = useTransactionsStore();
+  const { data = [] } = storeToRefs(transactionStore)
   const { accessToken } = storeToRefs(useUserStore())
 
   const queryClient = useQueryClient()
@@ -24,7 +25,7 @@ export const useEmployeeStore = defineStore('employee', () => {
   const invalidateEmployeesQuery = () => {
     return queryClient.invalidateQueries({ queryKey: ['employees'] })
   }
-  ''
+
   const createEmployee = (values: any) => {
     return createMutation({
       ...values,
@@ -42,36 +43,44 @@ export const useEmployeeStore = defineStore('employee', () => {
 
   const deleteEmployee = (id: string) => {
     return deleteMutation(id)
-      .then(transactionStore.invalidateTransactionsQuery)
+      .then()
       .then(invalidateEmployeesQuery)
+      .then(transactionStore.invalidateTransactionsQuery)
   }
 
-  const data = computed(() => {
-    return []
-  })
-
   const filteredEmployees = computed(() => {
-    return []
+
+    return employees.value?.map((employee) => {
+      const values = data.value?.groupedEmployee?.find((employeeGrouped) => employeeGrouped.employeeId === employee.id)
+      return Object.assign(employee, {
+        currentBalance: values?._sum.value || 0,
+        currentCommission: values?._sum.commission || 0,
+      })
+    })
   })
 
-  const totalExpense = computed(() => {
-    return 0
+  const total = computed(() => {
+    return data.value?.transactions.reduce((acc, item) => {
+      return acc + item.value
+    }, 0)
   })
 
-  const totalIncome = computed(() => {
-    return 0
+  const totalCommission = computed(() => {
+    return data.value?.groupedEmployee.reduce((acc, item) => {
+      return acc + item._sum.commission
+    }, 0)
   })
 
   return {
-    data,
     employees,
-    totalExpense,
-    totalIncome,
+    total,
+    totalCommission,
     queryLoading,
     createLoading,
     updateLoading,
     deleteLoading,
     isRefetchingLoading,
+    filteredEmployees,
     invalidateEmployeesQuery,
     createEmployee,
     updateEmployee,

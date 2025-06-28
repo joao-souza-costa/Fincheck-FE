@@ -22,7 +22,6 @@ const emit = defineEmits<{ close: [] }>()
 
 function onSubmit(values: any) {
   values.commission = parseInt(values.commission)
-  console.log(values)
   return employeeStore
     .createEmployee(values)
     .then(() => toast.success('Funcionário criado com sucesso'))

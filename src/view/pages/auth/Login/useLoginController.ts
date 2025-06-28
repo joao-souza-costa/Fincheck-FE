@@ -7,7 +7,7 @@ import { useUserStore } from '@/app/store/useUserStore'
 export function useLoginController() {
   const userStore = useUserStore()
 
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: async (values: signInParams) => {
       return AuthService.signIn(values)
     }
@@ -16,7 +16,7 @@ export function useLoginController() {
   async function onSubmit(values: any) {
     try {
       const { token } = await mutateAsync(values)
-      userStore.signin(token)
+      userStore.signin(token) 
     } catch (e) {
       console.error(e)
     }
@@ -31,6 +31,6 @@ export function useLoginController() {
   return {
     schema,
     onSubmit,
-    isLoading
+    isLoading: isPending
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <span :class="[areVisible && 'blur-md']">
-    {{ formatCurrency(balance) }}
+  <span v-if="balance" :class="[areVisible && 'blur-md']">
+    {{ formatCurrency(Number(balance)) }}
   </span>
 </template>
 
@@ -10,7 +10,7 @@ import { inject } from 'vue'
 import { type balanceProviderProps } from '../pages/DashBoard/providers/balanceProvider'
 
 type iProps = {
-  balance: number
+  balance: number | string | null
 }
 
 const { areVisible } = inject('balanceProvider') as balanceProviderProps

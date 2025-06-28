@@ -8,10 +8,10 @@
       @select="handleToggleEdit"
     />
 
-    <edit-category-modal
+    <edit-service-modal
       v-if="selected"
       is-open
-      :category="selected"
+      :service="selected"
       @open-delete="handleDelete"
       @close="handleToggleEdit(null)"
     />
@@ -32,20 +32,20 @@
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { toast } from '@/app/utils/toast'
-import { useCategoryStore } from '@/app/store/useCategoryStore'
+import { useServiceStore } from '@/app/store/useServiceStore'
 import ConfirmDeleteModal from '@/view/components/ConfirmDeleteModal.vue'
 import CategoriesHeader from './components/CategoriesHeader.vue'
 import EditCategoryModal from './modals/EditCategoryModal.vue'
 import CategoriesTable from './components/CategoriesTable.vue'
-import type { categoriesResponse } from '@/app/services/CategoriesService'
+import type { categoriesResponse } from '@/app/services/ServicesService'
 
-const categoryStore = useCategoryStore()
-const { data, isRefetchingLoading, queryLoading, deleteLoading } = storeToRefs(categoryStore)
+const serviceStore = useServiceStore()
+const { data, isRefetchingLoading, queryLoading, deleteLoading } = storeToRefs(serviceStore)
 
 const selected = ref<categoriesResponse | null>()
 
-const handleToggleEdit = (category: categoriesResponse | null) => {
-  selected.value = category
+const handleToggleEdit = (service: categoriesResponse | null) => {
+  selected.value = service
 }
 
 const isOpenDeleteModal = ref(false)
@@ -63,8 +63,8 @@ const closeDelete = () => {
 }
 
 async function onDelete(id: string) {
-  return categoryStore
-    .deleteCategory(id)
+  return serviceStore
+    .deleteService(id)
     .then(() => toast.success('Categoria deletada com sucesso'))
     .then(closeDelete)
     .catch(() => toast.error('Não foi possivel deletar a sua Categoria'))

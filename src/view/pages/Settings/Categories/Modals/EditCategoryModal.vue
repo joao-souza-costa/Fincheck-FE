@@ -17,7 +17,7 @@
 import BaseButton from '@/view/components/BaseButton.vue'
 import BaseCategoryModal from './BaseCategoryModal.vue'
 import { useEditCategoryModalController } from './EditCategoryModalController'
-import type { categoriesResponse } from '@/app/services/CategoriesService'
+import type { categoriesResponse } from '@/app/services/ServicesService'
 import TrashIcon from '@/view/components/icons/TrashIcon.vue'
 
 const emit = defineEmits<{ close: []; 'open-delete': [] }>()
