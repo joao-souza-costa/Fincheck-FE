@@ -1,7 +1,7 @@
 <template>
   <base-employee-modal
     v-if="isOpen"
-    modal-label="Criar Funcionário"
+    modal-label="Criar Profissional"
     @close="$emit('close')"
     @submit="onSubmit"
   >
@@ -24,8 +24,8 @@ function onSubmit(values: any) {
   values.commission = parseInt(values.commission)
   return employeeStore
     .createEmployee(values)
-    .then(() => toast.success('Funcionário criado com sucesso'))
+    .then(() => toast.success('Profissional criado com sucesso'))
     .then(() => emit('close'))
-    .catch(() => toast.error('Erro durante a criação do funcionário'))
+    .catch(() => toast.error('Erro durante a criação do profissional'))
 }
 </script>

@@ -52,7 +52,7 @@ type tEmit = {
 }
 
 const options = [
-  { value: 'EMPLOYEE', label: 'Funcionário' },
+  { value: 'EMPLOYEE', label: 'Profissional' },
   { value: 'OWNER', label: 'Administrador' }
 ]
 

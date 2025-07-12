@@ -37,7 +37,7 @@
       <div class="flex flex-1 flex-col justify-end mt-10 md:mt-0">
         <div v-if="!employees?.length">
           <div class="mb-4">
-            <strong class="text-white tracking-[-1px] text-lg"> Funcionários </strong>
+            <strong class="text-white tracking-[-1px] text-lg"> Profissionais </strong>
           </div>
           <base-button
             @click="toggleEmployeeModal('CREATE')"
@@ -49,7 +49,7 @@
               <plus-icon class="w-6 h-6" />
             </div>
             <span class="tracking-[-0.5px] font-medium block w-32 text-center">
-              Cadastrar um novo funcionário
+              Cadastrar um novo profissional
             </span>
           </base-button>
         </div>
@@ -66,7 +66,7 @@
           >
             <template #container-start>
               <div class="flex items-center justify-between mb-4">
-                <strong class="text-white tracking-[-1px] text-lg"> Funcionários </strong>
+                <strong class="text-white tracking-[-1px] text-lg"> Profissionais </strong>
                 <slider-navigation />
               </div>
             </template>

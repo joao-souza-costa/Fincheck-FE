@@ -28,7 +28,7 @@
 
         <BaseDropdown.Item @click="toggleEmployeeModal('CREATE')" class="gap-2">
           <BankAccountIcon />
-          Novo funcionário
+          Novo profissional
         </BaseDropdown.Item>
       </BaseDropdown.Content>
     </BaseDropdown.Root>

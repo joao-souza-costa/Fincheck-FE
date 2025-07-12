@@ -1,7 +1,7 @@
 <template>
   <base-employee-modal
     v-if="isOpen"
-    modal-label="Editar Funcionário"
+    modal-label="Editar Profissional"
     button-label="Editar"
     :initial-values="employee"
     @close="$emit('close')"
@@ -16,7 +16,7 @@
   <confirm-delete-modal
     v-if="isOpenDeleteModal"
     title="Tem certeza que deseja excluir esse functionário ?"
-    description="Ao excluir um funcionário os serviços associados ficaram sem funcionários."
+    description="Ao excluir um profissional os serviços associados ficaram sem profissionais."
     :is-loading="deleteLoading || queryLoading"
     @confirm="onDelete(employee.id)"
     @cancel="isOpenDeleteModal = false"
