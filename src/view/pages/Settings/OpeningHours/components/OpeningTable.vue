@@ -38,15 +38,15 @@ const props = defineProps<tProps>()
 const employeeStore = useEmployeeStore()
 
 const headers = [
-  { key: 'employeeId', title: 'Profissional', class: 'text-right md:text-center' },
+  { key: 'employeeId', title: 'Profissional', class: 'text-right md:text-center ' },
   { key: 'weekday', title: 'Dia da semana', class: 'text-center' },
   { key: 'openHourInMinutes', title: 'Começa a atender', class: 'text-center md:text-center' },
   {
     key: 'closeHourInMinutes',
     title: 'Termina o atendimentos',
-    class: 'text-right md:text-center'
+    class: 'text-right md:text-center !hidden md:!inline-block'
   },
-  { key: 'interval', title: 'Intervalo entre atendimentos', class: 'text-right md:text-center' }
+  { key: 'interval', title: 'Intervalo entre atendimentos', class: 'text-right md:text-center !hidden md:!inline-block' }
 ]
 
 function formatHours(minutes: number) {

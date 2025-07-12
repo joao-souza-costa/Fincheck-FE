@@ -27,7 +27,7 @@ const ListSection = (list: any[], headers: iHeader[], slots: any, emit: any) => 
 
   return h(
     'tbody',
-    { class: 'overflow-y-auto overflow-x-hidden scrollbar block h-full' },
+    { class: 'overflow-y-auto overflow-x-hidden md:scrollbar block h-full' },
     listMapped
   )
 }
@@ -68,7 +68,7 @@ const TableRoot = {
         Content.push(notFoundSection(props.notFoundDescription))
       }
 
-      return h('table', { class: 'border-gray-300 border w-full h-4/5 overflow-hidden' }, Content)
+      return h('table', { class: 'border-gray-300 border w-full md:h-4/5 md:overflow-hidden padding-x-1' }, Content)
     })
 
     return () => table.value

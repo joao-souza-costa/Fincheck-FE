@@ -36,9 +36,9 @@ const employeeStore = useEmployeeStore()
 
 const headers = [
   { key: 'name', title: 'Procedimento', class: 'text-start' },
-  { key: 'pricingMode', title: 'Precificação', class: 'text-center md:text-start' },
-  { key: 'baseValue', title: 'Valor', class: 'text-right md:text-center' },
-  { key: 'duration', title: 'Duração', class: 'text-right md:text-center' },
+  { key: 'pricingMode', title: 'Precificação', class: 'text-center md:text-center !hidden md:!inline-block' },
+  { key: 'baseValue', title: 'Valor', class: 'text-center md:text-center ' },
+  { key: 'duration', title: 'Duração', class: 'text-start md:text-center !hidden md:!inline-block' },
   { key: 'employees', title: 'Profissional', class: 'text-right md:text-center' }
 ]
 

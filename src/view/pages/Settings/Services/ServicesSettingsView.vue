@@ -1,5 +1,5 @@
 <template>
-  <section class="p-5 h-full">
+  <section class=" md:h-full">
     <services-header />
 
     <categories-table
