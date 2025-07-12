@@ -13,8 +13,8 @@
     </template>
 
     <template #[`body.icon`]="{ item }">
-      <category-icon :type="item.type.value" :category="item.icon.value" class="h-10 w-10" />
-    </template>
+<!--       <category-icon :type="item.type.value" :category="item.icon.value" class="h-10 w-10" />
+ -->    </template>
   </BaseTable.Root>
 </template>
 

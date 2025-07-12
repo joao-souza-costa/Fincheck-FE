@@ -22,14 +22,16 @@ export const useServiceStore = defineStore('services', () => {
     return queryClient.invalidateQueries({ queryKey: ['services'] })
   }
 
-  const createService = (values: any) => {
-    return createMutation(values).then(invalidateCategoriesQuery)
+  const createService = (payload: any) => {
+    return createMutation(Object.assign(payload, { value: parseFloat(payload.value), duration: parseInt(payload.duration) }))
+      .then(invalidateCategoriesQuery)
   }
 
   const updateService = (values: any, id: string) => {
+    delete values.baseValue
     return updateMutation({
       ...values,
-      initialBalance: Number(values.initialBalance),
+      value: parseFloat(values.value),
       id
     }).then(invalidateCategoriesQuery)
   }

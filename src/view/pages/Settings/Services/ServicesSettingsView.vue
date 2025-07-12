@@ -1,14 +1,14 @@
 <template>
   <section class="p-5 h-full">
-    <categories-header :disabled="Boolean(data && data?.length > 19)" />
+    <services-header />
 
     <categories-table
-      :data="data"
+      :data="data as servicesResponse[]"
       :is-loading="isRefetchingLoading || queryLoading"
       @select="handleToggleEdit"
     />
 
-    <edit-category-modal
+    <edit-service-modal
       v-if="selected"
       is-open
       :service="selected"
@@ -18,8 +18,8 @@
 
     <confirm-delete-modal
       v-if="isOpenDeleteModal && deleteId"
-      title="Excluir categoria"
-      description="Tem certeza que deseja excluir essa categoria ?"
+      title="Excluir procedimento"
+      description="Tem certeza que deseja excluir esse procedimento ?"
       :isLoading="deleteLoading || isRefetchingLoading"
       @confirm="onDelete(deleteId)"
       @cancel="closeDelete"
@@ -33,18 +33,22 @@ import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { toast } from '@/app/utils/toast'
 import { useServiceStore } from '@/app/store/useServiceStore'
+import ServicesHeader from './components/ServicesHeader.vue'
 import ConfirmDeleteModal from '@/view/components/ConfirmDeleteModal.vue'
-import CategoriesHeader from './components/CategoriesHeader.vue'
-import EditCategoryModal from './Modals/EditCategoryModal.vue'
-import CategoriesTable from './components/CategoriesTable.vue'
-import type { categoriesResponse } from '@/app/services/ServicesService'
+import EditServiceModal from './Modals/EditServiceModal.vue'
+import CategoriesTable from './components/ServicesTable.vue'
+import type { servicesResponse } from '@/app/services/ServicesService'
 
 const serviceStore = useServiceStore()
 const { data, isRefetchingLoading, queryLoading, deleteLoading } = storeToRefs(serviceStore)
 
-const selected = ref<categoriesResponse | null>()
+const selected = ref<servicesResponse | null>()
 
-const handleToggleEdit = (service: categoriesResponse | null) => {
+const handleToggleEdit = (service: servicesResponse | null) => {
+  if (service && service.employees) {
+    service.employee = service.employees[0]?.id
+  }
+
   selected.value = service
 }
 

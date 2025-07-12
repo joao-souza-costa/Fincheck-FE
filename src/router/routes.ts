@@ -1,4 +1,4 @@
-import { HOME_PAGE, LOGIN, REGISTER, DASHBOARD, FORGOT_PASSWORD, FORGOT_CHANGE_PASSWORD, DASHBOARD_SETTINGS, DASH, CATEGORY_SETTINGS } from '../app/config/constants/route'
+import { HOME_PAGE, LOGIN, REGISTER, DASHBOARD, FORGOT_PASSWORD, FORGOT_CHANGE_PASSWORD, DASHBOARD_SETTINGS, DASH, CATEGORY_SETTINGS, SERVICES_SETTINGS, OPENING_HOURS_SETTINGS } from '../app/config/constants/route'
 import AuthLayout from '@/view/layouts/AuthLayout.vue'
 import LoginView from '@/view/pages/Auth/Login/LoginView.vue'
 import ForgotPasswordView from '@/view/pages/Auth/ForgotPassword/ForgotPasswordView.vue'
@@ -8,6 +8,8 @@ import DashboardView from '@/view/pages/DashBoard/DashboardView.vue'
 import SettingsLayout from '@/view/layouts/SettingsLayout.vue'
 import HomePageLayout from '@/view/layouts/HomePageLayout.vue'
 import CategoriesSettingsView from '@/view/pages/Settings/Categories/CategoriesSettingsView.vue'
+import ServicesSettingsView from '@/view/pages/Settings/Services/ServicesSettingsView.vue'
+import OpeningHoursSettingsView from '@/view/pages/Settings/OpeningHours/OpeningHoursSettingsView.vue'
 
 
 const defineSlide = (to: any, from: any) => {
@@ -34,7 +36,17 @@ const HOME_PAGE_CHILDREN = [
         path: CATEGORY_SETTINGS.path,
         name: CATEGORY_SETTINGS.name,
         component: CategoriesSettingsView,
-      }
+      },
+      {
+        path: SERVICES_SETTINGS.path,
+        name: SERVICES_SETTINGS.name,
+        component: ServicesSettingsView,
+      },
+      {
+        path: OPENING_HOURS_SETTINGS.path,
+        name: OPENING_HOURS_SETTINGS.name,
+        component: OpeningHoursSettingsView,
+      },
     ]
   },
 ]

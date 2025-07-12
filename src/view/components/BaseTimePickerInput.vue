@@ -1,5 +1,5 @@
 <template>
-  <div class="date-picker">
+  <div class="time-picker">
     <BasePopover.Root :open="isOpen">
       <BasePopover.Trigger>
         <button
@@ -9,24 +9,22 @@
           @click="toggleOpen"
         >
           <label class="absolute left-[13px] top-1 pointer-events-none text-xs text-gray-700">
-            Data
+            Horário de atendimento
           </label>
-          <span>{{ formatDate(internalValue) }}</span>
+          <span>{{ formattedValue }}</span>
         </button>
       </BasePopover.Trigger>
 
       <BasePopover.Content class="w-80 text-red-400">
         <VueDatePicker
-          week-start="0"
-          :model-value="internalValue"
+          v-model="value"
+          :start-time
+          time-picker
+          minutes-increment="5"
           inline
-          auto-apply
-          :hide-navigation="['time', 'year', 'month']"
-          month-name-format="long"
-          menu-class-name="dp-custom-menu"
-          calendar-cell-class-name="dp-custom-cell"
+          :range="{ disableTimeRangeValidation: true }"
+          placeholder="Select Time"
           locale="pt-BR"
-          format="MM"
           @update:model-value="toggleOpen"
         />
       </BasePopover.Content>
@@ -42,56 +40,69 @@
 <script setup lang="ts">
 import VueDatePicker from '@vuepic/vue-datepicker'
 import BasePopover from '@/view/components/Popover/BasePopover'
-import { formatDate } from '@/app/utils/formatDate'
 import CrossCircle from '@/assets/CrossCircle.vue'
-import { computed, ref, toRef, watch } from 'vue'
+import { computed, onMounted, ref, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
 type iProps = {
   name: string
+  startTime?: Record<string, any>[]
 }
 
 const props = defineProps<iProps>()
 
 const isOpen = ref<boolean>(false)
+const value = ref(props.startTime)
 
 const toggleOpen = (v: any): void => {
-  if (isOpen.value) internalValue.value = v
+  if (isOpen.value) value.value = v
   isOpen.value = !isOpen.value
 }
 
 const name = toRef(props, 'name')
 
-const internalValue = computed<Date>({
-  get() {
-    return value.value as Date
-  },
-  set(v) {
-    v instanceof Date && setValue(v)
+const formattedValue = computed(() => {
+  if (!Array.isArray(value.value)) {
+    return ''
   }
+  const [start, end] = value.value
+
+  return `${addPad(start.hours)}:${addPad(start.minutes)} até ${addPad(end.hours)}:${addPad(end.minutes)}`
 })
 
-const { errorMessage, value, setValue } = useField(name, undefined)
+function addPad(v: number) {
+  return String(v).padStart(2, '0')
+}
+
+function setValueInField(v: any) {
+  if (v.length === 0) {
+    return
+  }
+
+  const [start, end] = v
+
+  const time = {
+    openHourInMinutes: start.hours * 60 + start.minutes,
+    closeHourInMinutes: end.hours * 60 + end.minutes
+  }
+
+  setValue(time)
+}
+
+watch(value, setValueInField)
+
+const { errorMessage, setValue } = useField(name)
+
+onMounted(() => {
+  console.log(props.startTime)
+  if (props.startTime) setValueInField(props.startTime)
+})
 </script>
 
 <style>
-.date-picker {
+.time-picker {
   .dp__theme_light {
-    --dp-primary-color: rgb(8 127 91 / var(--tw-bg-opacity));
-    --dp-icon-color: rgb(8 127 91 / var(--tw-bg-opacity));
     --dp-menu-border-color: #fff;
-
-    .dp__outer_menu_wrap {
-      width: 100%;
-    }
-  }
-
-  .dp-custom-menu {
-    border-radius: 16px;
-  }
-
-  .dp-custom-cell {
-    border-radius: 50%;
   }
 }
 </style>

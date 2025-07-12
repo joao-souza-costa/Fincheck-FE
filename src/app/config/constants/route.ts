@@ -49,3 +49,13 @@ export const CATEGORY_SETTINGS: iRoute = {
   name: 'CATEGORIES'
 }
 
+export const SERVICES_SETTINGS: iRoute = {
+  path: 'services',
+  name: 'SERVICES'
+}
+
+export const OPENING_HOURS_SETTINGS: iRoute = {
+  path: 'openingHours',
+  name: 'OPENING_HOURS_SETTINGS'
+}
+

@@ -1,26 +1,30 @@
-import type { TRANSACTION_TYPE } from "../config/constants/transaction";
+import type { SERVICES_PRICING_MODE } from "../config/constants/services";
 import { httpClient } from "./Client";
 
 export interface servicesResponse {
   id: string
   name: string,
-  icon: string
-  type: TRANSACTION_TYPE
+  pricingMode: SERVICES_PRICING_MODE
+  baseValue: number,
+  duration: number
+  value?: number,
+  employees: { id: string }[]
+  employee: string
 }
 
-interface categoryParams extends Omit<servicesResponse, "id"> { }
+interface servicesParams extends Omit<servicesResponse, "id"> { }
 
 export default {
   getAll: async () => {
     const { data } = await httpClient.get<servicesResponse[]>('/services')
     return data.reverse()
   },
-  create: async (params: categoryParams) => {
+  create: async (params: servicesParams) => {
     const { data } = await httpClient.post<servicesResponse>('/services', params)
     return data
   },
   update: async ({ id, ...params }: servicesResponse) => {
-    const { data } = await httpClient.put<servicesResponse>(`/services/${id}`, params)
+    const { data } = await httpClient.patch<servicesResponse>(`/services/${id}`, params)
     return data
   },
   delete: async (id: string) => {

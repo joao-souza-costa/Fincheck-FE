@@ -19,7 +19,8 @@ export type employeesResponse = {
   initialBalance: number
   type: 'CHECKING' | 'INVESTMENT' | 'CASH'
   color: string
-  transactions: Pick<Transaction, 'id' |'type' | 'value'>[]
+  transactions: Pick<Transaction, 'id' | 'type' | 'value'>[]
+  OpeningHours: Record<string, string>[]
 }
 
 export default {

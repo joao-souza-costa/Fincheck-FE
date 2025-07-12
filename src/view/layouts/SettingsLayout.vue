@@ -3,7 +3,7 @@
     <div class="md:w-1/4 w-full">
       <settings-menu />
     </div>
-    <div class="md:w-3/4 w-full">
+    <div class="md:w-3/4 w-full h-full">
       <RouterView />
     </div>
   </section>

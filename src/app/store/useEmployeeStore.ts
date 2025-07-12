@@ -26,6 +26,11 @@ export const useEmployeeStore = defineStore('employee', () => {
     return queryClient.invalidateQueries({ queryKey: ['employees'] })
   }
 
+  const employeesAsObject = computed(() => employees.value?.reduce((acc, item) => {
+    acc[item.id] = item
+    return acc
+  }, {}))
+
   const createEmployee = (values: any) => {
     return createMutation({
       ...values,
@@ -71,9 +76,16 @@ export const useEmployeeStore = defineStore('employee', () => {
     }, 0)
   })
 
+  const openingHours = computed(() => {
+    return employees.value?.reduce((acc, employee) => {
+      return acc.concat(employee.OpeningHours)
+    }, [] as any)
+  })
   return {
     employees,
     total,
+    employeesAsObject,
+    openingHours,
     totalCommission,
     queryLoading,
     createLoading,

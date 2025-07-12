@@ -11,7 +11,7 @@
     <BaseDropdown.Content class="w-32">
       <BaseDropdown.Item
         class="flex items-center justify-between"
-        @select="router.push(CATEGORY_SETTINGS)"
+        @select="router.push(SERVICES_SETTINGS)"
       >
         Configurações
       </BaseDropdown.Item>
@@ -32,7 +32,7 @@ import BaseDropdown from './Dropdown/BaseDropdown'
 import ExitIcon from './icons/ExitIcon.vue'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { DASHBOARD, CATEGORY_SETTINGS } from '@/app/config/constants/route'
+import { DASHBOARD, SERVICES_SETTINGS } from '@/app/config/constants/route'
 
 const userStore = useUserStore()
 const router = useRouter()

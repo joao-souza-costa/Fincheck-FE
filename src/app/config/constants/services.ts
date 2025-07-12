@@ -1,0 +1,9 @@
+export enum SERVICES_PRICING_MODE {
+  FIXED = "FIXED",
+  VARIABLE = "VARIABLE",
+}
+
+export const SERVICES_MODE_LABELS: { [key in SERVICES_PRICING_MODE]: string } = {
+  [SERVICES_PRICING_MODE.FIXED]: "Preço fixo",
+  [SERVICES_PRICING_MODE.VARIABLE]: "Preço Variável",
+}

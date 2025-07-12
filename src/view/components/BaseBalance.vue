@@ -1,5 +1,5 @@
 <template>
-  <span v-if="balance" :class="[areVisible && 'blur-md']">
+  <span :class="[areVisible && 'blur-md']">
     {{ formatCurrency(Number(balance)) }}
   </span>
 </template>
