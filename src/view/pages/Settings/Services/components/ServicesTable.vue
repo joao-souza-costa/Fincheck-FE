@@ -17,7 +17,7 @@
     </template>
     
     <template #[`body.employees`]="{ item }">
-      {{ employeeStore?.employeesAsObject?.[item.employees.value[0].id].name }}
+      {{ employeeStore?.employeesAsObject?.[item.employees.value[0]?.id].name }}
     </template>
   </BaseTable.Root>
 </template>
