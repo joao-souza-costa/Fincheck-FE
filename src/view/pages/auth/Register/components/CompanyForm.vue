@@ -34,7 +34,7 @@ const schema = Yup.object().shape({
   address: Yup.string().required(),
   phone: Yup.number()
     .required()
-    .typeError('Valor precisa ser um número sem caracteres ex: 11993606013')
+    .typeError('Valor precisa ser um número sem caracteres ex: 11912345678')
     .test('len', 'Telefone inválido', (val) => String(val).length === 11),
   pixKey: Yup.string().required()
 })

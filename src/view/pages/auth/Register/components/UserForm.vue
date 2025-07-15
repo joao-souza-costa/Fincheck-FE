@@ -6,6 +6,7 @@
   >
     <base-input type="text" id="name" name="name" placeholder="Nome" />
     <base-input type="email" id="email" name="email" placeholder="Email" />
+    <base-input type="tel" id="phone" name="phone" placeholder="Whatsapp*" />
     <base-input type="password" id="password" name="password" placeholder="Senha" />
     <base-input
       type="password"
@@ -40,6 +41,10 @@ const schema = Yup.object().shape({
   password: Yup.string()
     .min(8, 'Senha deve ter pelo menos 8 digitos')
     .required('Senha é obrigatória'),
+  phone: Yup.number()
+    .required()
+    .typeError('Valor precisa ser um número sem caracteres ex: 11912345678')
+    .test('len', 'Telefone inválido', (val) => String(val).length === 11),
   confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'As senhas precisam ser iguais')
 })
 </script>

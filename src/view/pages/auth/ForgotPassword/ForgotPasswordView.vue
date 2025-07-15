@@ -2,11 +2,11 @@
   <header class="flex flex-col items-center gap-4">
     <h1 class="text-2xl text-bold text-gray-900 tracking-[-1px]">Redefina sua senha</h1>
     <p v-if="!successRequest" class="space-x-2 text-gray-700 text-center">
-      Enviaremos um e-mail com instruções sobre como redefinir sua senha.
+      Enviaremos uma mensagem no whatsapp com instruções sobre como redefinir sua senha.
     </p>
 
     <p v-if="successRequest" class="space-x-2 text-gray-700 text-center">
-      E-mail enviado com sucesso!
+      Mensagem enviada com sucesso para o número com final: {{ numberSent }}.
       <span class="bg-teal-900 block w-fit rounded-full mx-auto">
         <check-icon class="text-white w-10 h-10 mt-3" />
       </span>
@@ -35,7 +35,7 @@ import BaseButton from '@/view/components/BaseButton.vue'
 
 import { useForgotPasswordController } from './useForgotPasswordController'
 
-const { schema, onSubmit, isLoading, successRequest } = useForgotPasswordController()
+const { schema, onSubmit, isLoading, successRequest, numberSent } = useForgotPasswordController()
 </script>
 
 <style scoped></style>

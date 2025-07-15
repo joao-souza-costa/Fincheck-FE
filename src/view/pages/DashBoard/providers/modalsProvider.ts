@@ -1,5 +1,5 @@
 import type { TRANSACTION_TYPE } from "@/app/config/constants/transaction"
-import type { bankEmployeesResponse } from "@/app/services/EmployeeService"
+import type { employeesResponse } from "@/app/services/EmployeeService"
 import type { Transaction } from "@/app/services/TransactionService"
 import { provide, reactive, ref } from "vue"
 
@@ -11,9 +11,9 @@ export type modalsProviderProps = {
   isOpenEmployeeModal: {
     CREATE: boolean
     EDIT: boolean
-    EDIT_EMPLOYEE: bankEmployeesResponse | undefined
+    EDIT_EMPLOYEE: employeesResponse | undefined
   }
-  toggleEmployeeModal: (type: tEmployeeType, employee?: bankEmployeesResponse) => void
+  toggleEmployeeModal: (type: tEmployeeType, employee?: employeesResponse) => void
 
   isOpenTransactionModal: {
     INCOME: boolean
@@ -33,8 +33,12 @@ export function useModalsProvider() {
     EDIT_EMPLOYEE: undefined
   })
 
-  const toggleEmployeeModal = (type: tEmployeeType, employee?: bankEmployeesResponse): void => {
-    if (type === "EDIT" && employee) isOpenEmployeeModal.EDIT_EMPLOYEE = employee
+  const toggleEmployeeModal = (type: tEmployeeType, employee?: employeesResponse): void => {
+    if (type === "EDIT" && employee) {
+
+      employee.phone = employee.phone.substring(2)
+      isOpenEmployeeModal.EDIT_EMPLOYEE = employee
+    }
     isOpenEmployeeModal[type] = !isOpenEmployeeModal[type]
   }
 

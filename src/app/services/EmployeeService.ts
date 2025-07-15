@@ -1,5 +1,6 @@
 //Reformular banck accounts to employee
 
+import type { EMPLOYEE_STATUS, EMPLOYEE_TYPE } from "../config/constants/employee";
 import { httpClient } from "./Client";
 import { type Transaction } from "./TransactionService";
 export interface employeeParams {
@@ -16,11 +17,13 @@ export interface UpdateEmployeeParams extends employeeParams {
 export type employeesResponse = {
   id: string
   name: string
-  initialBalance: number
-  type: 'CHECKING' | 'INVESTMENT' | 'CASH'
+  commission: number
+  companyId: string
   color: string
-  transactions: Pick<Transaction, 'id' | 'type' | 'value'>[]
+  phone: string,
   OpeningHours: Record<string, string>[]
+  status: EMPLOYEE_STATUS,
+  type: EMPLOYEE_TYPE
 }
 
 export default {

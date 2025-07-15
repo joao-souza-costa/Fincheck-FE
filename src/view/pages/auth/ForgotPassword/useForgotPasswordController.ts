@@ -7,8 +7,9 @@ import * as Yup from 'yup'
 export function useForgotPasswordController() {
 
   const successRequest = ref<boolean>(false)
+  const numberSent = ref<number | null>(null)
 
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: async (value: { email: string }) => {
       return AuthService.forgotPassword(value)
     }
@@ -16,7 +17,10 @@ export function useForgotPasswordController() {
 
   async function onSubmit(values: any) {
     return await mutateAsync(values)
-      .then(() => successRequest.value = true)
+      .then((result) => {
+        numberSent.value = result.phone
+        successRequest.value = true
+      })
       .catch(() => toast.error('Não foi possível fazer a solicitação de resete de senha'))
   }
 
@@ -27,7 +31,8 @@ export function useForgotPasswordController() {
   return {
     schema,
     onSubmit,
-    isLoading,
-    successRequest
+    isLoading: isPending,
+    successRequest,
+    numberSent
   }
 }
