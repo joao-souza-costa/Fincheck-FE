@@ -11,7 +11,7 @@ export const useServiceStore = defineStore('services', () => {
   const { data = [], isLoading: queryLoading, isRefetching: isRefetchingLoading } = useQuery({
     queryKey: ['services'],
     queryFn: servicesService.getAll,
-    enabled: accessToken
+    enabled: accessToken.value
   })
 
   const { mutateAsync: createMutation, isPending: createLoading } = useMutation({ mutationFn: servicesService.create })

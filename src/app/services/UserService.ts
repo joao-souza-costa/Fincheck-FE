@@ -1,8 +1,10 @@
+import type { EMPLOYEE_TYPE } from "../config/constants/employee";
 import { httpClient } from "./Client";
 
 interface User {
   name: string,
-  email: string
+  email: string,
+  type: EMPLOYEE_TYPE
 }
 
 export default {

@@ -24,16 +24,19 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-app.use(VueQueryPlugin, {
+const vueQueryPluginOptions = {
   queryClientConfig: {
     defaultOptions: {
       queries: {
         retry: false,
         refetchOnWindowFocus: false,
-      }
+
+      },
     },
   },
-})
+}
+
+app.use(VueQueryPlugin, vueQueryPluginOptions)
 
 app.use(Toast)
 app.mount('#app')

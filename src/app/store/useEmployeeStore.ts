@@ -4,18 +4,20 @@ import employeeService from "../services/EmployeeService"
 import { useTransactionsStore } from "./useTransactionStore"
 import { useUserStore } from "./useUserStore"
 import { computed, ref } from "vue"
+import { EMPLOYEE_TYPE } from "../config/constants/employee"
 
 export const useEmployeeStore = defineStore('employee', () => {
   const transactionStore = useTransactionsStore();
   const { data = [] } = storeToRefs(transactionStore)
-  const { accessToken } = storeToRefs(useUserStore())
+  const { accessToken, user } = storeToRefs(useUserStore())
+
 
   const queryClient = useQueryClient()
 
-  const { data: employees, isPending: queryLoading, isRefetching: isRefetchingLoading } = useQuery({
+  const { data: employeesData, isFetching: queryLoading, isRefetching: isRefetchingLoading } = useQuery({
     queryKey: ['employees'],
     queryFn: employeeService.getAll,
-    enabled: accessToken
+    enabled: accessToken.value && user.value?.type === EMPLOYEE_TYPE.OWNER,
   })
 
   const { mutateAsync: createMutation, isPending: createLoading } = useMutation({ mutationFn: employeeService.create })
@@ -25,6 +27,13 @@ export const useEmployeeStore = defineStore('employee', () => {
   const invalidateEmployeesQuery = () => {
     return queryClient.invalidateQueries({ queryKey: ['employees'] })
   }
+
+  const employees = computed(() => {
+    if (user.value?.type !== EMPLOYEE_TYPE.OWNER) {
+      return []
+    }
+    return employeesData.value
+  })
 
   const employeesAsObject = computed(() => employees.value?.reduce((acc, item) => {
     acc[item.id] = item

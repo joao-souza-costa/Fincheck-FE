@@ -9,7 +9,7 @@
       </div>
     </main>
 
-    <base-fab />
+    <base-fab v-if="userStore.isOwner" />
     <employee-modals />
     <transaction-modals />
   </div>
@@ -23,6 +23,10 @@ import EmployeeModals from './components/Modals/EmployeeModals.vue'
 import { useBalanceProvider } from './providers/balanceProvider'
 import { useModalsProvider } from './providers/modalsProvider'
 import TransactionModals from './components/Modals/TransactionModals/TransactionModals.vue'
+import { useUserStore } from '@/app/store/useUserStore'
+import { onUnmounted } from 'vue'
+
+const userStore = useUserStore()
 
 useBalanceProvider()
 useModalsProvider()

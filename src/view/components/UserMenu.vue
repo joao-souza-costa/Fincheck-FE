@@ -10,6 +10,7 @@
 
     <BaseDropdown.Content class="w-32">
       <BaseDropdown.Item
+        v-if="userStore.isOwner"
         class="flex items-center justify-between"
         @select="router.push(SERVICES_SETTINGS)"
       >

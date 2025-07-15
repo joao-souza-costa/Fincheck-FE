@@ -24,7 +24,8 @@
           />
         </div>
         <div class="mt-8">
-          <span class="text-white block tracking-[-0.5px]">Comissões a pagar</span>
+          <span v-if="userStore.isOwner" class="text-white block tracking-[-0.5px]">Comissões a pagar</span>
+          <span v-else class="text-white block tracking-[-0.5px]">Comissões a receber</span>
           <div>
             <base-balance
               class="text-2xl tracking-[-1px] text-white"
@@ -34,7 +35,7 @@
         </div>
       </div>
 
-      <div class="flex flex-1 flex-col justify-end mt-10 md:mt-0">
+      <div class="flex flex-1 flex-col justify-end mt-10 md:mt-0" v-if="userStore.isOwner">
         <div v-if="!employees?.length">
           <div class="mb-4">
             <strong class="text-white tracking-[-1px] text-lg"> Profissionais </strong>
@@ -103,12 +104,14 @@ import { MEDIUM_SCREEN } from '@/app/config/constants/breakpoints'
 import { type modalsProviderProps, MODALS_PROVIDER } from '../providers/modalsProvider'
 import { useEmployeeStore } from '@/app/store/useEmployeeStore'
 import type { balanceProviderProps } from '../providers/balanceProvider'
+import { useUserStore } from '@/app/store/useUserStore'
 
 const { toggleEmployeeModal } = inject(MODALS_PROVIDER) as modalsProviderProps
 
 const { areVisible, toggleVisibility } = inject('balanceProvider') as balanceProviderProps
 
 const employeeStore = useEmployeeStore()
+const userStore = useUserStore()
 
 const employees = computed(() => employeeStore.employees)
 const isLoading = computed(() => employeeStore.queryLoading)

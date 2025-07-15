@@ -24,7 +24,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
     queryKey: ['transactions'],
     queryFn: () => transactionService.getAll(filters.value),
     retry: false,
-    enabled: accessToken
+    enabled: accessToken.value
   })
 
   function handleChangeFilters<TFilter extends keyof GetAllTransactionFilters>(filter: TFilter) {

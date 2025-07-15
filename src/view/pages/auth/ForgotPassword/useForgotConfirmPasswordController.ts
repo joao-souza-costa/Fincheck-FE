@@ -12,7 +12,7 @@ export function useForgotConfirmPasswordController() {
   const router = useRouter()
   const successRequest = ref<boolean>(false)
 
-  const { mutateAsync, isLoading } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: async (values: updateNewPasswordParams) => {
       return AuthService.updateNewPassword(values)
     }
@@ -42,7 +42,7 @@ export function useForgotConfirmPasswordController() {
   return {
     schema,
     onSubmit,
-    isLoading,
+    isLoading: isPending,
     successRequest
   }
 }
