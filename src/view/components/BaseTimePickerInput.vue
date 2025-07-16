@@ -94,7 +94,6 @@ watch(value, setValueInField)
 const { errorMessage, setValue } = useField(name)
 
 onMounted(() => {
-  console.log(props.startTime)
   if (props.startTime) setValueInField(props.startTime)
 })
 </script>

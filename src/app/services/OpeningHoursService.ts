@@ -14,15 +14,15 @@ interface openingHoursParams extends Omit<openingHoursResponse, "id"> { }
 
 export default {
   getAll: async () => {
-    const { data } = await httpClient.get<openingHoursResponse[]>('company/opening-hours')
+    const { data } = await httpClient.get<openingHoursResponse[]>('/company/opening-hours')
     return data.reverse()
   },
   create: async (params: openingHoursParams) => {
-    const { data } = await httpClient.post<openingHoursResponse>('company/opening-hours', params)
+    const { data } = await httpClient.post<openingHoursResponse>('/company/opening-hours', params)
     return data
   },
   update: async ({ id, ...params }: openingHoursResponse) => {
-    const { data } = await httpClient.patch<openingHoursResponse>(`company/opening-hours/${id}`, params)
+    const { data } = await httpClient.patch<openingHoursResponse>(`/company/opening-hours/${id}`, params)
     return data
   },
   delete: async (id: string) => {
