@@ -21,7 +21,6 @@
 
       <base-input name="value" type="text" id="value" placeholder="Valor" />
       <base-input name="duration" type="text" id="duration" placeholder="Duração (Em minutos)" />
-      <base-time-picker-input name="opening" />
       <slot />
     </Form>
   </base-modal>
