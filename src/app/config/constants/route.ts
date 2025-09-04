@@ -59,3 +59,8 @@ export const OPENING_HOURS_SETTINGS: iRoute = {
   name: 'OPENING_HOURS_SETTINGS'
 }
 
+
+export const SCHEDULE_VIEW: iRoute = {
+  path: 'schedule',
+  name: 'schedule'
+}

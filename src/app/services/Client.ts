@@ -5,7 +5,9 @@ import { toast } from "../utils/toast";
 const { VITE_API_URL } = import.meta.env
 
 
-export const httpClient = axios.create()
+export const httpClient = axios.create({
+  baseURL: 'http://localhost:3000'
+})
 
 httpClient.interceptors.request.use(config => {
   const token = localStorage.getItem(accessTokenKey)

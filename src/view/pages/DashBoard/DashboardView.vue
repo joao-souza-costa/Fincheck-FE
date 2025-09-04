@@ -24,7 +24,6 @@ import { useBalanceProvider } from './providers/balanceProvider'
 import { useModalsProvider } from './providers/modalsProvider'
 import TransactionModals from './components/Modals/TransactionModals/TransactionModals.vue'
 import { useUserStore } from '@/app/store/useUserStore'
-import { onUnmounted } from 'vue'
 
 const userStore = useUserStore()
 

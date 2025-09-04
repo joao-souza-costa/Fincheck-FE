@@ -1,31 +1,33 @@
 <template>
   <div>
     <base-modal title="Filtros" :open="open" @update:open="$emit('close')">
-      <div class="mt-5">
-        <span class="text-lg tracking-[-1px] font-bold text-gray-800"> Contas </span>
-      </div>
-      <div class="h-44">
-        <base-scroll-bar>
-          <button
-            v-for="employee in employees"
-            :class="{ '!bg-gray-200': selectedAccountId === employee.id }"
-            :key="employee.id"
-            class="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50"
-            @click="handleSelectedId(employee.id)"
-          >
-            {{ employee.name }}
-          </button>
+      <template v-if="userStore.isOwner">
+        <div class="mt-5">
+          <span class="text-lg tracking-[-1px] font-bold text-gray-800"> Contas </span>
+        </div>
+        <div class="h-44">
+          <base-scroll-bar>
+            <button
+              v-for="employee in employees"
+              :class="{ '!bg-gray-200': selectedAccountId === employee.id }"
+              :key="employee.id"
+              class="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50"
+              @click="handleSelectedId(employee.id)"
+            >
+              {{ employee.name }}
+            </button>
 
-          <button
-            :class="{ '!bg-gray-200': selectedAccountId === 'NON_PROFESSIONAL' }"
-            class="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50"
-            @click="handleSelectedId('NON_PROFESSIONAL')"
-          >
-            Profissional indefinido
-          </button>
-        </base-scroll-bar>
-      </div>
-
+            <button
+              v-if="showNonProfessional"
+              :class="{ '!bg-gray-200': selectedAccountId === 'NON_PROFESSIONAL' }"
+              class="p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50"
+              @click="handleSelectedId('NON_PROFESSIONAL')"
+            >
+              Profissional indefinido
+            </button>
+          </base-scroll-bar>
+        </div>
+      </template>
       <div class="mt-3">
         <span class="text-lg tracking-[-1px] font-bold text-gray-800"> Período </span>
       </div>
@@ -63,6 +65,9 @@ import { useFiltersModalController } from './FiltersModalController'
 import { SwiperSlide, Swiper } from 'swiper/vue'
 import SliderNavigation from '../Transactions/SliderNavigation.vue'
 import { PERIODS, PERIODS_LABEL } from '@/app/config/constants/dates'
+import { useUserStore } from '@/app/store/useUserStore'
+
+const userStore = useUserStore()
 
 type tFilters = {
   employeeId: string | undefined
@@ -71,6 +76,7 @@ type tFilters = {
 
 type iProps = {
   open: boolean
+  showNonProfessional: boolean
 }
 type iEmits = {
   (e: 'close'): void

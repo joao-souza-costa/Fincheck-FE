@@ -11,8 +11,9 @@
     </label>
     <SelectRoot @update:model-value="handleChange" :model-value="value">
       <SelectTrigger
+        :disabled="disabled"
         class="relative bg-white w-full rounded-lg border border-gray-500 px-3 h-[55px] text-gray-800 outline-none focus:border-gray-800 flex items-center transition-all pt-4"
-        :class="[errorMessage && '!border-red-900 text-red-900']"
+        :class="[errorMessage && '!border-red-900 text-red-900', disabled && 'opacity-30']"
         aria-label="Customise options"
       >
         <SelectValue />
@@ -26,7 +27,7 @@
 
       <SelectPortal>
         <SelectContent
-          class="z-[99] min-w-[160px] bg-white rounded rounded-2xl border border-gray-100 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]"
+          class="z-[99] min-w-[160px] bg-white rounded-2xl border border-gray-100 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]"
           :side-offset="5"
         >
           <SelectScrollUpButton
@@ -88,6 +89,7 @@ type tProps = {
     label: string
   }[]
   placeholder: string
+  disabled?: boolean
 }
 
 const props = defineProps<tProps>()

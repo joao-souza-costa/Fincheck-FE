@@ -4,8 +4,9 @@
       <BasePopover.Trigger>
         <button
           type="button"
+          :disabled
           class="relative bg-white w-full rounded-lg border text-start border-gray-500 px-3 pt-4 h-[55px] text-gray-800 outline-none focus:border-gray-800 transition-all"
-          :class="[errorMessage && '!border-red-900 text-red-900']"
+          :class="[errorMessage && '!border-red-900 text-red-900', disabled && 'opacity-30']"
           @click="toggleOpen"
         >
           <label class="absolute left-[13px] top-1 pointer-events-none text-xs text-gray-700">
@@ -22,7 +23,7 @@
           time-picker
           minutes-increment="5"
           inline
-          :range="{ disableTimeRangeValidation: true }"
+          :range="rangeTime"
           placeholder="Select Time"
           locale="pt-BR"
           @update:model-value="toggleOpen"
@@ -47,6 +48,8 @@ import { useField } from 'vee-validate'
 type iProps = {
   name: string
   startTime?: Record<string, any>[]
+  range?: boolean
+  disabled: boolean
 }
 
 const props = defineProps<iProps>()
@@ -63,11 +66,19 @@ const name = toRef(props, 'name')
 
 const formattedValue = computed(() => {
   if (!Array.isArray(value.value)) {
+    if (value.value !== undefined && !(value.value instanceof PointerEvent)) {
+      console.log(value)
+      return `${addPad(value?.value.hours)}:${addPad(value?.value?.minutes)}`
+    }
     return ''
   }
   const [start, end] = value.value
 
   return `${addPad(start.hours)}:${addPad(start.minutes)} até ${addPad(end.hours)}:${addPad(end.minutes)}`
+})
+
+const rangeTime = computed(() => {
+  return props.range && { disableTimeRangeValidation: true }
 })
 
 function addPad(v: number) {
@@ -79,11 +90,19 @@ function setValueInField(v: any) {
     return
   }
 
-  const [start, end] = v
+  let time = null
 
-  const time = {
-    openHourInMinutes: start.hours * 60 + start.minutes,
-    closeHourInMinutes: end.hours * 60 + end.minutes
+  if (props.range) {
+    const [start, end] = v
+
+    time = {
+      openHourInMinutes: start.hours * 60 + start.minutes,
+      closeHourInMinutes: end.hours * 60 + end.minutes
+    }
+  } else {
+    time = {
+      start: v.hours * 60 + v.minutes
+    }
   }
 
   setValue(time)

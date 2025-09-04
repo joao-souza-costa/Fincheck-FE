@@ -10,6 +10,12 @@
 
     <BaseDropdown.Content class="w-32">
       <BaseDropdown.Item
+        class="flex items-center justify-between"
+        @select="router.push(SCHEDULE_VIEW)"
+      >
+        Agendamento
+      </BaseDropdown.Item>
+      <BaseDropdown.Item
         v-if="userStore.isOwner"
         class="flex items-center justify-between"
         @select="router.push(SERVICES_SETTINGS)"
@@ -19,6 +25,7 @@
       <BaseDropdown.Item class="flex items-center justify-between" @select="router.push(DASHBOARD)">
         Dashboard
       </BaseDropdown.Item>
+
       <BaseDropdown.Item class="flex items-center justify-between" @select="handleSignout">
         Sair
         <ExitIcon class="w-4 h-4" />
@@ -33,7 +40,7 @@ import BaseDropdown from './Dropdown/BaseDropdown'
 import ExitIcon from './icons/ExitIcon.vue'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { DASHBOARD, SERVICES_SETTINGS } from '@/app/config/constants/route'
+import { DASHBOARD, SERVICES_SETTINGS, SCHEDULE_VIEW } from '@/app/config/constants/route'
 
 const userStore = useUserStore()
 const router = useRouter()

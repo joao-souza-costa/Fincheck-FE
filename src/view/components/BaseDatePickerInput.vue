@@ -4,8 +4,9 @@
       <BasePopover.Trigger>
         <button
           type="button"
+          :disabled
           class="relative bg-white w-full rounded-lg border text-start border-gray-500 px-3 pt-4 h-[55px] text-gray-800 outline-none focus:border-gray-800 transition-all"
-          :class="[errorMessage && '!border-red-900 text-red-900']"
+          :class="[errorMessage && '!border-red-900 text-red-900', disabled && 'opacity-30']"
           @click="toggleOpen"
         >
           <label class="absolute left-[13px] top-1 pointer-events-none text-xs text-gray-700">
@@ -17,6 +18,7 @@
 
       <BasePopover.Content class="w-80 text-red-400">
         <VueDatePicker
+          class="date-picker"
           week-start="0"
           :model-value="internalValue"
           inline
@@ -49,6 +51,7 @@ import { useField } from 'vee-validate'
 
 type iProps = {
   name: string
+  disabled: boolean
 }
 
 const props = defineProps<iProps>()

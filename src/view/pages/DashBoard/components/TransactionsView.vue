@@ -82,8 +82,8 @@
       :open="isOpenFiltersModal"
       @close="toggleFiltersModal"
       @apply-filters="handleApplyFilters"
+      show-non-professional
     >
-      Filtros...
     </filters-modal>
   </div>
 </template>

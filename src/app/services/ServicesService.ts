@@ -8,7 +8,9 @@ export interface servicesResponse {
   baseValue: number,
   duration: number
   value?: number,
-  employees: { id: string }[]
+  employees: {
+    name: any; id: string 
+}[]
   employee: string
 }
 

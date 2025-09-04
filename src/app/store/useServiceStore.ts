@@ -2,13 +2,14 @@ import { defineStore, storeToRefs } from "pinia"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query"
 import servicesService from "../services/ServicesService"
 import { useUserStore } from "./useUserStore"
+import { computed } from "vue"
 
 export const useServiceStore = defineStore('services', () => {
 
   const { accessToken } = storeToRefs(useUserStore())
   const queryClient = useQueryClient()
 
-  const { data = [], isLoading: queryLoading, isRefetching: isRefetchingLoading } = useQuery({
+  const { data, isLoading: queryLoading, isRefetching: isRefetchingLoading } = useQuery({
     queryKey: ['services'],
     queryFn: servicesService.getAll,
     enabled: accessToken.value
@@ -40,6 +41,16 @@ export const useServiceStore = defineStore('services', () => {
     return deleteMutation(id)
       .then(invalidateCategoriesQuery)
   }
+  const servicesAsOptions = computed(() => {
+
+    if (!data.value) {
+      return []
+    }
+    return data.value?.map((v) => ({
+      label: v.name,
+      value: v.id
+    }))
+  })
 
   return {
     data,
@@ -48,6 +59,7 @@ export const useServiceStore = defineStore('services', () => {
     createLoading,
     updateLoading,
     deleteLoading,
+    servicesAsOptions,
     createService,
     updateService,
     deleteService,
