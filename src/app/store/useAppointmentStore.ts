@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query"
 import { defineStore, storeToRefs } from "pinia"
 import appointmentService, { type GetAllAppointmentFilters } from "../services/AppointmentService"
-import { computed, ref, watch } from "vue"
+import { computed, reactive, ref, watch } from "vue"
 import { useUserStore } from "./useUserStore"
 import { PERIODS } from "../config/constants/dates"
 import { startOfDay } from "date-fns"
@@ -12,12 +12,12 @@ export const useAppointmentStore = defineStore('appointment', () => {
 
   const filters = ref({
     date: startOfDay(Date.now()).toISOString(),
-    period: PERIODS.diary,
+    period: PERIODS.monthly,
     type: undefined,
     employeeId: undefined
   })
 
-  const { data, isFetching: queryLoading, isInitialLoading: queryInitialLoading, isRefetching, refetch } = useQuery({
+  const { data, isFetching: queryLoading, isPending: queryInitialLoading, isRefetching, refetch } = useQuery({
     queryKey: ['appointment'],
     queryFn: () => appointmentService.getAll(filters.value),
     retry: false,
@@ -26,6 +26,7 @@ export const useAppointmentStore = defineStore('appointment', () => {
 
   function handleChangeFilters(filter: any, value: any) {
     filters.value[filter] = value
+    resetSelectedItems()
     refetch()
   }
 
@@ -55,9 +56,30 @@ export const useAppointmentStore = defineStore('appointment', () => {
     return deleteMutation(id).then(invalidateAppointmentQuery)
   }
 
+
+  const selectedItems = ref([])
+
+  function toggleSelectedItems(item: any) {
+    const hasItem = selectedItems.value.findIndex(i => i.id === item.id)
+    if (hasItem === -1) {
+      return selectedItems.value.push(item)
+    }
+    selectedItems.value.splice(hasItem, 1);
+  }
+
+  function resetSelectedItems() {
+    selectedItems.value = []
+  }
+
+
+  const selectedItemType = computed(() => {
+    return selectedItems.value[0]?.status || 'NONE'
+  })
+
   return {
     data,
     filters,
+    selectedItems,
     queryLoading,
     queryInitialLoading,
     createLoading,
@@ -69,5 +91,8 @@ export const useAppointmentStore = defineStore('appointment', () => {
     createAppointment,
     updateAppointment,
     deleteAppointment,
+    toggleSelectedItems,
+    selectedItemType,
+    resetSelectedItems
   }
 })

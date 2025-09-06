@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import EmployeesView from './components/EmployeesView.vue'
 import TransactionsView from './components/TransactionsView.vue'
-import BaseFab from '@/view/components/BaseFab.vue'
+import BaseFab from '@/view/pages/DashBoard/components/BaseFab.vue'
 import EmployeeModals from './components/Modals/EmployeeModals.vue'
 import { useBalanceProvider } from './providers/balanceProvider'
 import { useModalsProvider } from './providers/modalsProvider'

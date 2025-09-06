@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDeleteModal from '@/view/components/ConfirmDeleteModal.vue'
+import ConfirmDeleteModal from '@/view/components/ConfirmModal.vue'
 import BaseTransactionModal from './BaseTransactionModal.vue'
 import { useTransactionModalsController } from './TransactionModalsController'
 import { ref } from 'vue'
@@ -76,4 +76,4 @@ const expenseLabels = ref({
   serviceLabel: 'Serviço (opcional)',
   professionalLabel: 'Profissional (opcional)'
 })
-</script>
+</script> 

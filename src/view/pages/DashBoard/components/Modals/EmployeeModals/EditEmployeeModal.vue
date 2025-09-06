@@ -29,7 +29,7 @@ import type { employeesResponse } from '@/app/services/EmployeeService'
 import BaseEmployeeModal from './BaseEmployeeModal.vue'
 import BaseButton from '@/view/components/BaseButton.vue'
 import TrashIcon from '@/view/components/icons/TrashIcon.vue'
-import ConfirmDeleteModal from '@/view/components/ConfirmDeleteModal.vue'
+import ConfirmDeleteModal from '@/view/components/ConfirmModal.vue'
 import { useEditAccountModalController } from './EditEmployeeModalController'
 
 defineProps<{ isOpen: boolean; employee: employeesResponse }>()
