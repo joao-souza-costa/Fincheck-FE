@@ -29,7 +29,7 @@ export type GetAllAppointmentFilters = {
 
 export default {
   create: async (params: Omit<CreateAppointmentParams, 'id'>) => {
-    const { data } = await httpClient.post('/appointment/', params);
+    const { data } = await httpClient.post('/appointment', params);
     return data;
   },
   getAll: async (filters: GetAllAppointmentFilters) => {
@@ -44,5 +44,11 @@ export default {
   },
   delete: async (id: string) => {
     return httpClient.delete(`/appointment/${id}`);
+  },
+  confirmAppointment: async (id: string) => {
+    return httpClient.get(`/appointment/${id}/confirm`);
+  },
+  cancelAppointment: async (id: string) => {
+    return httpClient.get(`/appointment/${id}/cancel`);
   },
 }

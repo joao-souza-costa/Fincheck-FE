@@ -19,7 +19,7 @@
       <BaseDropdown.Trigger>
         <button
           v-show="appointmentStore.selectedItemType === 'NONE'"
-          class="text-white bg-teal-900 cursor-pointer w-12 h-12 rounded-full flex justify-center items-center outline-none"
+          class="text-white bg-teal-900 cursor-pointer w-12 h-12 rounded-full flex justify-center items-center outline-none  md:hidden"
         >
           <plus-icon class="w-6 h-6" />
         </button>

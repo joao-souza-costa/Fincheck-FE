@@ -5,6 +5,7 @@ import { computed, reactive, ref, watch } from "vue"
 import { useUserStore } from "./useUserStore"
 import { PERIODS } from "../config/constants/dates"
 import { startOfDay } from "date-fns"
+import EmployeeIcon from "@/view/components/icons/EmployeeTypeIcon/EmployeeIcon.vue"
 
 export const useAppointmentStore = defineStore('appointment', () => {
   const queryClient = useQueryClient()
@@ -39,7 +40,18 @@ export const useAppointmentStore = defineStore('appointment', () => {
   }
 
   const createAppointment = (values: any) => {
-    return createMutation(values).then(invalidateAppointmentQuery)
+
+    const date = new Date(new Date(values.date).setUTCHours(0, values.time.start, 0))
+    const payload = {
+      serviceIds: [values.service],
+      employeeId: values.employee,
+      customerEmail: values.email,
+      customerName: values.name,
+      phone: values.phone,
+      start: date.toISOString()
+    }
+
+    return createMutation(payload).then(invalidateAppointmentQuery)
   }
 
   const updateAppointment = (id: string, { category, ...values }: any,) => {
@@ -71,10 +83,17 @@ export const useAppointmentStore = defineStore('appointment', () => {
     selectedItems.value = []
   }
 
-
   const selectedItemType = computed(() => {
     return selectedItems.value[0]?.status || 'NONE'
   })
+
+  function confirmSelectedItems() {
+    return Promise.allSettled(selectedItems.value.map((item) => appointmentService.confirmAppointment(item.id)))
+  }
+
+  function cancelSelectedItems() {
+    return Promise.allSettled(selectedItems.value.map((item) => appointmentService.cancelAppointment(item.id)))
+  }
 
   return {
     data,
@@ -86,13 +105,15 @@ export const useAppointmentStore = defineStore('appointment', () => {
     updateLoading,
     deleteLoading,
     refetchingLoading: isRefetching,
+    selectedItemType,
     handleChangeFilters,
     invalidateAppointmentQuery,
     createAppointment,
     updateAppointment,
     deleteAppointment,
     toggleSelectedItems,
-    selectedItemType,
-    resetSelectedItems
+    resetSelectedItems,
+    confirmSelectedItems,
+    cancelSelectedItems
   }
 })

@@ -1,5 +1,5 @@
 <template>
-  <base-modal open @update:open="!isLoading && $emit('close')">
+  <base-modal title="Agendamentos" open @update:open="!isLoading && $emit('close')">
     <div class="flex flex-col items-center text-center gap-6">
       <slot>
         <div class="w-[52px] h-[52px] rounded-full bg-red-0 flex items-center justify-center">

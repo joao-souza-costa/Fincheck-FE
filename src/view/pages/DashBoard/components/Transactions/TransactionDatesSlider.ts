@@ -82,7 +82,6 @@ export const TransactionDatesSlider = defineComponent({
       await prependSlider(filters[props.filter](date, 'PREV',)),
       await appendSlide(filters[props.filter](date)),
       await appendSlide(filters[props.filter](date, 'NEXT', 1)),
-      await appendSlide(filters[props.filter](date, 'NEXT', 1)),
       ])
     }
 

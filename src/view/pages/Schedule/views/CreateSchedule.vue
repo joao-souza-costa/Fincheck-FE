@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-100 rounded-2xl h-full w-full md:p-10 px-4 py-8 flex flex-col justify-between"
+    class="hidden md:flex bg-gray-100 rounded-2xl h-full w-full md:py-0 md:px-10 px-4 py-8 flex-col justify-between"
   >
     <form class="mt-5 flex flex-col gap-4">
       <h1 class="text-gray text-xl block tracking-[-0.5px]">Agende um atendimento</h1>
@@ -65,7 +65,7 @@ const schema = Yup.object().shape({
     .required('É obrigatório definir um horário')
 })
 
-const { values, validate } = useForm({
+const { values, validate, resetForm } = useForm({
   validationSchema: schema
 })
 
@@ -85,8 +85,10 @@ const employeeOptions = computed(() => {
 
 function handleFormSubmit() {
   validate().then((e) => {
-    //Aqui ele retorna um validate boleano
-    console.log(e)
+    if (e.valid) {
+      //Aqui ele retorna um validate boleano
+      appointmentStore.createAppointment(values).then(() => resetForm())
+    }
   })
 }
 

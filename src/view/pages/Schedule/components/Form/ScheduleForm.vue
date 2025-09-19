@@ -1,5 +1,9 @@
 <template>
-  <BaseModal title="Agendamento do cliente" :open="scheduleProvider.modal.CREATE" @update:open="scheduleProvider.toggleModal('CREATE')" >
+  <BaseModal
+    title="Agendamento do cliente"
+    :open="scheduleProvider.modal.CREATE"
+    @update:open="scheduleProvider.toggleModal('CREATE')"
+  >
     <form class="mt-5 flex flex-col gap-4">
       <base-input name="name" type="text" id="name" placeholder="Nome *" />
       <base-input name="email" type="text" id="email" placeholder="Email *" />
@@ -20,7 +24,7 @@
 
       <base-date-picker-input name="date" :disabled="!values.employee" />
 
-      <BaseTimePickerInput name="time"  :disabled="!values.date" />
+      <BaseTimePickerInput name="time" :disabled="!values.date" />
     </form>
 
     <BaseButton class="w-full mt-3" label="Confirmar" @click="handleFormSubmit" />
@@ -91,18 +95,12 @@ const employeeOptions = computed(() => {
 
 function handleFormSubmit() {
   validate().then((e) => {
-    //Aqui ele retorna um validate boleano
-    console.log(e)
+    if (e.valid) {
+      //Aqui ele retorna um validate boleano
+      appointmentStore.createAppointment(values)
+    }
   })
 }
-
-watch(
-  () => values.date,
-  (a) => {
-    appointmentStore.handleChangeFilters('date', a.toISOString())
-    appointmentStore.handleChangeFilters('period', PERIODS.diary)
-  }
-)
 
 watch(
   () => values.employee,

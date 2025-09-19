@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 roundsed-2xl w-full h-full p-10 flex flex-col max-sm:p-4 !max-sm:pt-4">
+  <div class="bg-gray-100 rounded-2xl w-full h-full p-10 flex flex-col max-sm:p-4 !max-sm:pt-4">
     <template v-if="queryInitialLoading">
       <div class="w-full h-full flex justify-center items-center">
         <base-spinner class="w-10 h-10" />
@@ -112,4 +112,8 @@ const handleSwiperChange = (value) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.swiper-slide-active button {
+  background-color: white;
+}
+</style>
