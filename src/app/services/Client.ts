@@ -2,12 +2,9 @@ import axios from "axios";
 import { accessTokenKey } from "../config/constants/localStorageKeys";
 import { useUserStore } from "../store/useUserStore";
 import { toast } from "../utils/toast";
-const { VITE_API_URL } = import.meta.env
 
 
-export const httpClient = axios.create({
-  baseURL: 'http://localhost:3000'
-})
+export const httpClient = axios.create()
 
 httpClient.interceptors.request.use(config => {
   const token = localStorage.getItem(accessTokenKey)
