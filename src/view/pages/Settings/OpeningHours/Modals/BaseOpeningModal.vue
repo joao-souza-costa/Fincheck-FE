@@ -24,7 +24,7 @@
         placeholder="Intervalo entre atendimentos (Minutos)"
       />
 
-      <base-time-picker-input name="opening" :start-time="opening" />
+      <base-time-picker-input name="opening" :start-time="opening" range/>
 
       <slot />
     </Form>

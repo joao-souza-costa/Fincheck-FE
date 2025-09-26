@@ -4,7 +4,8 @@ import { httpClient } from "./Client";
 interface User {
   name: string,
   email: string,
-  type: EMPLOYEE_TYPE
+  type: EMPLOYEE_TYPE,
+  id: string,
 }
 
 export default {

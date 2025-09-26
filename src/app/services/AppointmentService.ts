@@ -24,7 +24,7 @@ export type GetAllAppointmentFilters = {
   date: string,
   period: PERIODS,
   employeeId?: string;
-  type?: APPOINTMENT_STATUS
+  status?: APPOINTMENT_STATUS
 }
 
 export default {

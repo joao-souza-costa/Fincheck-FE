@@ -33,7 +33,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const isOwner = computed(() => user.value?.type === EMPLOYEE_TYPE.OWNER)
-
+  
   return {
     user: readonly(user),
     isOwner,

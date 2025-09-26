@@ -8,28 +8,26 @@
 
     <template v-else>
       <header>
-        <div class="mb-2 flex items-center justify-between">
+        <div class="mb-4 flex items-center justify-between">
           <AppointmentStatusDropdown
-            :selected="filters.type"
+            :selected="filters.status"
             @select="handleSelectTypeTransaction"
           />
 
-          <button type="button" class="cursor-pointer" @click="toggleFiltersModal">
+          <button
+            v-if="userStore.isOwner"
+            type="button"
+            class="cursor-pointer"
+            @click="toggleFiltersModal"
+          >
             <filter-icon />
           </button>
         </div>
-        <TransactionDatesSlider
-          ref="test"
-          class="!mt-0"
-          :filter="filters.period"
-          :value="filters.date"
-          @slide-start="() => (slideLoading = true)"
-          @change-value="handleSwiperChange"
-        />
+        <DayList :employeeId="filters.employeeId" @selected="handleSwiperChange" />
       </header>
 
       <div
-        v-if="queryLoading"
+        v-if="queryLoading || refetchingLoading"
         class="mt-4 flex space-y-2 flex-1 flex-col items-center justify-center"
       >
         <base-spinner class="w-10" />
@@ -64,6 +62,7 @@
     </template>
     <FiltersModal
       :open="isOpenFiltersModal"
+      :showPeriodsFilter="false"
       :showNonProfessional="false"
       @close="toggleFiltersModal"
       @apply-filters="handleApplyFilters"
@@ -84,9 +83,13 @@ import { useAppointmentStore } from '@/app/store/useAppointmentStore'
 import { storeToRefs } from 'pinia'
 import emptyState from '@/assets/empty-state.svg'
 import TimeListItem from '../components/TimeListItem.vue'
+import DayList from '../components/DayList.vue'
+import { useUserStore } from '@/app/store/useUserStore'
 
 const appointmentStore = useAppointmentStore()
-const { filters, data, queryInitialLoading, queryLoading } = storeToRefs(appointmentStore)
+const userStore = useUserStore()
+
+const { filters, data, queryInitialLoading, queryLoading, refetchingLoading } = storeToRefs(appointmentStore)
 
 const dateFormat = computed(() => {
   return filters.value.period !== PERIODS.diary ? 'dd/MM - pp' : 'pp'
@@ -98,7 +101,7 @@ const toggleFiltersModal = () => {
   return (isOpenFiltersModal.value = !isOpenFiltersModal.value)
 }
 const handleSelectTypeTransaction = (v) => {
-  appointmentStore.handleChangeFilters('type', v)
+  appointmentStore.handleChangeFilters('status', v)
 }
 
 const handleApplyFilters = ({ employeeId, period }) => {

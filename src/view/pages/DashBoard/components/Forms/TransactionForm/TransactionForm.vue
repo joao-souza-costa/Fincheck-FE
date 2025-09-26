@@ -34,7 +34,7 @@
         :placeholder="professionalLabel"
       />
 
-      <base-date-picker-input name="date" />
+      <base-date-picker-input name="date" :disabled="false" />
 
       <base-button type="submit" :is-loading="isLoading"> Salvar </base-button>
     </div>

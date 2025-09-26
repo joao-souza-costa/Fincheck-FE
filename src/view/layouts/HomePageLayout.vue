@@ -7,9 +7,7 @@
 
     <router-view #="{ Component, route }">
       <transition :name="String(route.meta.transition)" mode="out-in">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
+        <component :is="Component" />
       </transition>
     </router-view>
   </div>

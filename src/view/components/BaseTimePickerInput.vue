@@ -49,7 +49,7 @@ type iProps = {
   name: string
   startTime?: Record<string, any>[]
   range?: boolean
-  disabled: boolean
+  disabled?: boolean
 }
 
 const props = defineProps<iProps>()
@@ -67,7 +67,6 @@ const name = toRef(props, 'name')
 const formattedValue = computed(() => {
   if (!Array.isArray(value.value)) {
     if (value.value !== undefined && !(value.value instanceof PointerEvent)) {
-      console.log(value)
       return `${addPad(value?.value.hours)}:${addPad(value?.value?.minutes)}`
     }
     return ''

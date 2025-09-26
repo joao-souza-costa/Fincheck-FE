@@ -69,7 +69,7 @@
                   <base-balance
                     v-if="transaction.type === TRANSACTION_TYPE.INCOME"
                     class="tracking-[-0.5px] font-medium text-yellow-700"
-                    :balance="transaction.commission"
+                    :balance="transaction.commissionedValue"
                   />
                 </div>
               </div>
@@ -83,8 +83,8 @@
       @close="toggleFiltersModal"
       @apply-filters="handleApplyFilters"
       show-non-professional
-    >
-    </filters-modal>
+      show-periods-filter
+    />
   </div>
 </template>
 

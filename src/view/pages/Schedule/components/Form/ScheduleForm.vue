@@ -97,7 +97,7 @@ function handleFormSubmit() {
   validate().then((e) => {
     if (e.valid) {
       //Aqui ele retorna um validate boleano
-      appointmentStore.createAppointment(values)
+      appointmentStore.createAppointment(values).then(() => scheduleProvider.toggleModal('CREATE'))
     }
   })
 }

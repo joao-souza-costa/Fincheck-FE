@@ -6,16 +6,17 @@ import { useUserStore } from "./useUserStore"
 import { PERIODS } from "../config/constants/dates"
 import { startOfDay } from "date-fns"
 import EmployeeIcon from "@/view/components/icons/EmployeeTypeIcon/EmployeeIcon.vue"
+import { EMPLOYEE_TYPE } from "../config/constants/employee"
 
 export const useAppointmentStore = defineStore('appointment', () => {
   const queryClient = useQueryClient()
-  const { accessToken } = storeToRefs(useUserStore())
+  const { accessToken, user } = storeToRefs(useUserStore())
 
   const filters = ref({
     date: startOfDay(Date.now()).toISOString(),
-    period: PERIODS.monthly,
-    type: undefined,
-    employeeId: undefined
+    period: PERIODS.diary,
+    status: undefined,
+    employeeId: user.value?.type === EMPLOYEE_TYPE.OWNER ? undefined : user.value.id
   })
 
   const { data, isFetching: queryLoading, isPending: queryInitialLoading, isRefetching, refetch } = useQuery({
@@ -88,11 +89,11 @@ export const useAppointmentStore = defineStore('appointment', () => {
   })
 
   function confirmSelectedItems() {
-    return Promise.allSettled(selectedItems.value.map((item) => appointmentService.confirmAppointment(item.id)))
+    return Promise.allSettled(selectedItems.value.map((item) => appointmentService.confirmAppointment(item.id))).finally(() => refetch())
   }
 
   function cancelSelectedItems() {
-    return Promise.allSettled(selectedItems.value.map((item) => appointmentService.cancelAppointment(item.id)))
+    return Promise.allSettled(selectedItems.value.map((item) => appointmentService.cancelAppointment(item.id))).finally(() => refetch())
   }
 
   return {

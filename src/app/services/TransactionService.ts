@@ -17,6 +17,7 @@ export type Transaction = {
   name: string;
   value: number;
   commission: number;
+  commissionedValue: number,
   type: TRANSACTION_TYPE;
   paymentType: PaymentTypes;
   companyId?: string,
